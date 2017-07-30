@@ -16,14 +16,15 @@
 
         <include layout="@layout/app_bar"/>
 
-        <GridView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycle_view"
             xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:background="?attr/colorPrimaryDark"
             android:layout_height="match_parent"
             android:verticalSpacing="5dp"
-            android:id="@+id/gridview"
             android:numColumns="2"
+            android:paddingBottom="20dp"
             />
     </LinearLayout>
 </LinearLayout>

@@ -8,11 +8,11 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:background="@color/colorPrimary"
-        android:layout_height="60dp">
+        android:layout_height="50dp">
 
             <TextView
                 android:layout_width="match_parent"
-                android:text="Siente tu liga"
+                android:text="Selecciona tu liga"
                 android:textStyle="bold"
                 android:textColor="@color/white"
                 android:gravity="center"
