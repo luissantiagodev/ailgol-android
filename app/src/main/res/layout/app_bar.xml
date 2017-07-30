@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
-        android:layout_height="50dp">
+        android:layout_height="?attr/actionBarSize">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:text="Selecciona tu liga"
-                android:textStyle="bold"
-                android:textColor="@color/white"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:layout_height="match_parent"
+           <TextView
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="Seleccione tu liga"
+               android:layout_marginTop="15dp"
+               android:textSize="16sp"
+               android:textColor="@color/white"
+               android:gravity="center"
+               style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
+               android:layout_gravity ="center"
+               />
 
-                />
     </android.support.design.widget.AppBarLayout>
-</LinearLayout>
+</RelativeLayout>
