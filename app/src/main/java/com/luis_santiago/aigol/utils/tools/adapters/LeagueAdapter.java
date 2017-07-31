@@ -1,4 +1,4 @@
-package com.luis_santiago.aigol.start.lib.adapters;
+package com.luis_santiago.aigol.utils.tools.adapters;
 
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
@@ -12,9 +12,7 @@ import java.util.*;
 
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.menu.HomeActivity;
-import com.luis_santiago.aigol.start.lib.LeagueTeam;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
+import com.luis_santiago.aigol.utils.tools.pojos.LeagueTeam;
 
 /**
  * Created by legendarywicho on 7/28/17.
@@ -48,6 +46,7 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.PhotoHolde
             public void onClick(View v) {
                 Log.e("Legue adapter", "Im touching the:"+ position);
                 Intent intent = new Intent(v.getContext(), HomeActivity.class);
+                // TODO: Send a Bundle object to know which league request we are going to make
                 v.getContext().startActivity(intent);
             }
         });

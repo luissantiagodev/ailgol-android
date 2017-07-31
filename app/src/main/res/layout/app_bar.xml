@@ -15,7 +15,7 @@
            <TextView
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
-               android:text="Seleccione tu liga"
+               android:text="@string/selecciona_tu_liga"
                android:layout_marginTop="15dp"
                android:textSize="16sp"
                android:textColor="@color/white"

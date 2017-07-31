@@ -24,7 +24,9 @@ public class TablesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tables, container, false);
+        View view = inflater.inflate(R.layout.fragment_tables, container, false);
+        //TODO: Create an adapter with a placeholder
+        return view;
     }
 
 }

@@ -1,4 +1,4 @@
-package com.luis_santiago.aigol.start.lib;
+package com.luis_santiago.aigol.utils.tools.pojos;
 
 /**
  * Created by legendarywicho on 7/28/17.

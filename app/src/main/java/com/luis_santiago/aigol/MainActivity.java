@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.luis_santiago.aigol.start.lib.adapters.LeagueAdapter;
-import com.luis_santiago.aigol.start.lib.LeagueTeam;
+import com.luis_santiago.aigol.utils.tools.adapters.LeagueAdapter;
+import com.luis_santiago.aigol.utils.tools.pojos.LeagueTeam;
 
 import java.util.*;
 
