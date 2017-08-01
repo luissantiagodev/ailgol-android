@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
 import com.luis_santiago.aigol.MainActivity;
@@ -18,6 +19,7 @@ import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.menu.fragments.NewsFragment;
 import com.luis_santiago.aigol.menu.fragments.ScoresFragment;
 import com.luis_santiago.aigol.menu.fragments.TablesFragment;
+import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 
 import static android.R.attr.id;
 
@@ -26,11 +28,23 @@ public class HomeActivity extends AppCompatActivity {
 
     //Bottom Nav view
     BottomNavigationViewEx mBottomNavigationViewEx;
+    // This Bundle is for receiving data from the main Activity
+    Bundle mBundle;
+    public static String leagueName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+        // Setting up the mBundle object
+        mBundle = getIntent().getExtras();
+
+        leagueName = mBundle.getString(Keys.TEAM_NAME);
+
+        // Debugging
+        Toast.makeText(HomeActivity.this,"La liga en que estoy es:"+leagueName, Toast.LENGTH_SHORT).show();
 
         mBottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottom_bar);
         // Enabling text and icon view
@@ -40,7 +54,8 @@ public class HomeActivity extends AppCompatActivity {
         /*
         * If the user hasn't clicked a icon, then we will set the default fragment
         * */
-        settingFragment(new ScoresFragment());
+        ScoresFragment scoresFragment = new ScoresFragment();
+        settingFragment(scoresFragment);
         setUpGreenIcon(1);
     }
 
@@ -115,10 +130,5 @@ public class HomeActivity extends AppCompatActivity {
                 .setTransition(FragmentTransaction.TRANSIT_EXIT_MASK)
                 .addToBackStack(null)
                 .commit();
-    }
-
-    @Override
-    public void onBackPressed() {
-            super.onBackPressed();
     }
 }

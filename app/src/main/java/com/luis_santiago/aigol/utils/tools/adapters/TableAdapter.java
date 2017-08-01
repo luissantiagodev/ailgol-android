@@ -18,11 +18,20 @@ import com.luis_santiago.aigol.utils.tools.pojos.TableTeam;
 
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapterHolder>{
 
-    private ArrayList <TableTeam> mTableTeams = new ArrayList<>();
+    private List <TableTeam> mTableTeams = new ArrayList<>();
 
 
-    public TableAdapter(ArrayList <TableTeam> team){
+    public TableAdapter(List <TableTeam> team){
         this.mTableTeams = team;
+    }
+
+    public void setmTableTeams(List <TableTeam> team){
+        if (team == null){
+            return;
+        }
+        mTableTeams.clear();
+        mTableTeams.addAll(team);
+        notifyDataSetChanged();
     }
 
     @Override

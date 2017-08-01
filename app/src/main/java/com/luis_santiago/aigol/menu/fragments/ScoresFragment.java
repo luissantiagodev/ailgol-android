@@ -6,14 +6,19 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.luis_santiago.aigol.R;
+import com.luis_santiago.aigol.menu.HomeActivity;
+import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ScoresFragment extends Fragment {
 
+
+    String legueName ="";
 
     public ScoresFragment() {
         // Required empty public constructor
@@ -24,7 +29,12 @@ public class ScoresFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_scores, container, false);
+        View view = inflater.inflate(R.layout.fragment_scores, container, false);
+
+            legueName = HomeActivity.leagueName;
+
+        Toast.makeText(getContext(), "ESTOY EN LA LIGA +"+legueName, Toast.LENGTH_SHORT).show();
+        return view;
     }
 
 }

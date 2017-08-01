@@ -1,6 +1,7 @@
 package com.luis_santiago.aigol.utils.tools.adapters;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import java.util.*;
 
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.menu.HomeActivity;
+import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 import com.luis_santiago.aigol.utils.tools.pojos.LeagueTeam;
 
 /**
@@ -21,6 +23,8 @@ import com.luis_santiago.aigol.utils.tools.pojos.LeagueTeam;
 public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.PhotoHolder>{
 
     private ArrayList <LeagueTeam> mLeagueTeams = new ArrayList<>();
+    //This is for sending the type of League we are in
+    private Bundle mBundle;
 
     public LeagueAdapter(ArrayList<LeagueTeam> lg){
         this.mLeagueTeams =lg;
@@ -46,7 +50,10 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.PhotoHolde
             public void onClick(View v) {
                 Log.e("Legue adapter", "Im touching the:"+ position);
                 Intent intent = new Intent(v.getContext(), HomeActivity.class);
-                // TODO: Send a Bundle object to know which league request we are going to make
+                mBundle = new Bundle();
+                //Sending the string to the Home activity where it's manage by everyone
+                mBundle.putString(Keys.TEAM_NAME,leagueTeam.getLeagueName());
+                intent.putExtras(mBundle);
                 v.getContext().startActivity(intent);
             }
         });
