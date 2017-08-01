@@ -17,6 +17,7 @@ import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.SoccerApi.AilGolClient;
 import com.luis_santiago.aigol.SoccerApi.ApiSoccerRequest;
 import com.luis_santiago.aigol.menu.HomeActivity;
+import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 import com.luis_santiago.aigol.utils.tools.adapters.TableAdapter;
 import com.luis_santiago.aigol.utils.tools.pojos.TableTeam;
 
@@ -82,7 +83,7 @@ public class TablesFragment extends Fragment {
                 .getTeamLeagues(HomeActivity.leagueName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<List<TableTeam>>() {
+                .subscribe(new Observer<TableTeam>() {
                     @Override
                     public void onCompleted() {
                         Log.e(TAG, "I'm done with the data!");
@@ -94,8 +95,10 @@ public class TablesFragment extends Fragment {
                     }
 
                     @Override
-                    public void onNext(List<TableTeam> tableTeams) {
-                       mTableAdapter.setmTableTeams(tableTeams);
+                    public void onNext(TableTeam tableTeams) {
+                        Log.e("TAG", "I got the data"+tableTeams);
+                        Log.e("TAG", "ESTOY EN LA LIGA "+ HomeActivity.leagueName);
+                       mTableTeamArrayList.add(tableTeams);
                     }
                 });
     }

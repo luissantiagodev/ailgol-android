@@ -36,13 +36,12 @@ public class AilGolClient {
 
     private AilGolClient(){
         //Setting up Gson for the Json parsing
-        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-                .create();
+
 
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Keys.URL_BASE_TABLE_STANDINGS)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(GsonConverterFactory.create(new Gson()))
                 .build();
 
         // I get my Api interface to start the request
@@ -56,7 +55,7 @@ public class AilGolClient {
         }
         return mAilGolClient;
     }
-    public rx.Observable<List<TableTeam>> getTeamLeagues(@NonNull String leagueName){
+    public rx.Observable<TableTeam> getTeamLeagues(@NonNull String leagueName){
         return mApiSoccerRequest.getStandingsLegue(leagueName);
     }
 }

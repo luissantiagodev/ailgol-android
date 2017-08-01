@@ -1,10 +1,13 @@
 package com.luis_santiago.aigol.utils.tools.pojos;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by legendarywicho on 7/31/17.
  */
 
 public class TableTeam {
+
 
     private int position;
     private int logo;
@@ -51,5 +54,18 @@ public class TableTeam {
 
     public String getTeamName(){
         return teamName;
+    }
+
+    @Override
+    public String toString() {
+        return "TableTeam{" +
+                "position=" + position +
+                ", logo=" + logo +
+                ", teamName='" + teamName + '\'' +
+                ", mp=" + mp +
+                ", gf=" + gf +
+                ", ga=" + ga +
+                ", pts=" + pts +
+                '}';
     }
 }

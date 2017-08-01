@@ -16,7 +16,7 @@ public interface ApiSoccerRequest {
 
     // Getting the teams position on the Tables Fragment
     @GET("leagues/{league-slug}/seasons/17-18/standings?mashape-key=aSQCm3sGOxmshtcKn0a08CL7tRGFp1HLHROjsnV0X34F3IXFcX")
-    rx.Observable<List<TableTeam>> getStandingsLegue(@Path("league-slug") String league);
+    rx.Observable<TableTeam> getStandingsLegue(@Path("league-slug") String league);
 
 
     //TODO: Getting the latest result on the specific League they request
