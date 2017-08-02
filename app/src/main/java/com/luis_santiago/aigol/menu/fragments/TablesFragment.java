@@ -1,8 +1,14 @@
 package com.luis_santiago.aigol.menu.fragments;
 
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -12,6 +18,8 @@ import java.util.ArrayList;
 
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.SoccerApi.AilGolClient;
@@ -25,6 +33,9 @@ import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static android.os.Build.VERSION_CODES.N;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -35,13 +46,17 @@ public class TablesFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
     private TableAdapter mTableAdapter;
+    // This is for the progress bar, when we have conection it's remove
     private LinearLayout mLinearLayout;
+    // This thing too
+    private ProgressBar isThereInternetConnection;
     // This is for getting all the data from the Observer
     Subscription mSubscription;
-    // This is the bundle Object we Recieve from the Main Activity league selection
-
-
+    //Creating a Dialog if there isn't no internet
+    AlertDialog.Builder mBuilder;
+    // The list we are going to display
     ArrayList<Standing> mTableTeamArrayList;
+
 
     public TablesFragment() {
         // Required empty public constructor
@@ -58,8 +73,8 @@ public class TablesFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(view.getContext());
         // Setting the Layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-
         mLinearLayout = (LinearLayout) view.findViewById(R.id.progress_bar_layout);
+        isThereInternetConnection = (ProgressBar) view.findViewById(R.id.progress_bar_interner);
 
         /**
          * This is just for testing, delete after request
@@ -68,8 +83,6 @@ public class TablesFragment extends Fragment {
 
         mTableAdapter =  new TableAdapter(mTableTeamArrayList);
         mRecyclerView.setAdapter(mTableAdapter);
-
-        getLeagueTeams();
 
         return view;
     }
@@ -84,14 +97,13 @@ public class TablesFragment extends Fragment {
                     public void onCompleted() {
 
                     }
-
                     @Override
                     public void onError(Throwable e) {
-
+                        Log.e(TAG, ""+e);
                     }
-
                     @Override
                     public void onNext(FinalResultSoccerTable finalResultSoccerTable) {
+                        Log.e(TAG, "Im starting the request");
                         mLinearLayout.setVisibility(View.GONE);
                         mTableAdapter.setTableTeams(finalResultSoccerTable.getData().getStandings());
                     }
@@ -100,6 +112,40 @@ public class TablesFragment extends Fragment {
 
     @Override
     public void onResume() {
-        super.onResume();
+      super.onResume();
+        if(weHaveInternet()){
+            Log.e(TAG, "we have internet");
+            getLeagueTeams();
+        }
+        else{
+            throwUpDialogue();
+            Log.e(TAG, "we don't have internet");
+            isThereInternetConnection.setVisibility(View.GONE);
+        }
     }
+
+    private void throwUpDialogue(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            mBuilder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
+        } else {
+            mBuilder = new AlertDialog.Builder(getContext());
+        }
+
+        mBuilder.setTitle("¡Chicharito la fallo!")
+                .setMessage("There is no internet connection")
+                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // // This thing toocontinue with delete
+                    }
+                });
+        mBuilder.show();
+    }
+
+    private Boolean weHaveInternet(){
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        return networkInfo!=null && networkInfo.isConnected();
+    }
+
 }
