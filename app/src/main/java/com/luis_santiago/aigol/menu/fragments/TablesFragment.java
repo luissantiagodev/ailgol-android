@@ -9,25 +9,21 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import java.util.ArrayList;
-import java.util.List;
 
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.SoccerApi.AilGolClient;
-import com.luis_santiago.aigol.SoccerApi.ApiSoccerRequest;
+import com.luis_santiago.aigol.SoccerApi.FinalResultSoccerTable;
+import com.luis_santiago.aigol.SoccerApi.data.Standing;
 import com.luis_santiago.aigol.menu.HomeActivity;
-import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 import com.luis_santiago.aigol.utils.tools.adapters.TableAdapter;
-import com.luis_santiago.aigol.utils.tools.pojos.TableTeam;
 
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
-import static android.content.ContentValues.TAG;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,12 +35,13 @@ public class TablesFragment extends Fragment {
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
     private TableAdapter mTableAdapter;
+    private LinearLayout mLinearLayout;
     // This is for getting all the data from the Observer
     Subscription mSubscription;
     // This is the bundle Object we Recieve from the Main Activity league selection
 
 
-    ArrayList<TableTeam> mTableTeamArrayList;
+    ArrayList<Standing> mTableTeamArrayList;
 
     public TablesFragment() {
         // Required empty public constructor
@@ -62,13 +59,12 @@ public class TablesFragment extends Fragment {
         // Setting the Layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
 
+        mLinearLayout = (LinearLayout) view.findViewById(R.id.progress_bar_layout);
 
         /**
          * This is just for testing, delete after request
          */
         mTableTeamArrayList= new ArrayList<>();
-
-        mTableTeamArrayList.add(new TableTeam(1, R.drawable.premier,23,25,23,23,"Madrid"));
 
         mTableAdapter =  new TableAdapter(mTableTeamArrayList);
         mRecyclerView.setAdapter(mTableAdapter);
@@ -83,23 +79,27 @@ public class TablesFragment extends Fragment {
                 .getTeamLeagues(HomeActivity.leagueName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<TableTeam>() {
+                .subscribe(new Observer<FinalResultSoccerTable>() {
                     @Override
                     public void onCompleted() {
-                        Log.e(TAG, "I'm done with the data!");
+
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "There was an error with the data!"+ e);
+
                     }
 
                     @Override
-                    public void onNext(TableTeam tableTeams) {
-                        Log.e("TAG", "I got the data"+tableTeams);
-                        Log.e("TAG", "ESTOY EN LA LIGA "+ HomeActivity.leagueName);
-                       mTableTeamArrayList.add(tableTeams);
+                    public void onNext(FinalResultSoccerTable finalResultSoccerTable) {
+                        mLinearLayout.setVisibility(View.GONE);
+                        mTableAdapter.setTableTeams(finalResultSoccerTable.getData().getStandings());
                     }
                 });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 }

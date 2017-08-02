@@ -12,10 +12,24 @@
        android:layout_height="match_parent">
 
        <LinearLayout
+           android:id="@+id/progress_bar_layout"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+       <ProgressBar
+           android:layout_width="match_parent"
+           android:indeterminate="false"
+           android:layout_gravity="center_vertical"
+           android:indeterminateTint="@color/progress_color"
+           android:layout_height="70dp"
+           />
+
+       </LinearLayout>
+       <LinearLayout
            android:layout_width="match_parent"
            android:orientation="vertical"
            android:layout_marginTop="60dp"
            android:layout_height="wrap_content">
+
 
            <LinearLayout
                android:layout_width="match_parent"
@@ -81,11 +95,13 @@
            </LinearLayout>
        </LinearLayout>
 
+
        <android.support.v7.widget.RecyclerView
            android:id="@+id/recycle_view_table_fragment"
            android:layout_width="match_parent"
            android:minHeight="2dp"
            android:layout_height="match_parent">
+
        </android.support.v7.widget.RecyclerView>
    </LinearLayout>
 

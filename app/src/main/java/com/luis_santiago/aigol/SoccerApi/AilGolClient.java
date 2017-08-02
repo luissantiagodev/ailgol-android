@@ -2,23 +2,14 @@ package com.luis_santiago.aigol.SoccerApi;
 
 import android.support.annotation.NonNull;
 
-import com.google.gson.FieldNamingPolicy;
-
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
-import com.luis_santiago.aigol.utils.tools.pojos.TableTeam;
 
 
-import retrofit2.CallAdapter;
 import retrofit2.Retrofit;
-import java.util.*;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
-import rx.Observable;
-
-import static android.R.attr.name;
 
 
 /**
@@ -55,7 +46,7 @@ public class AilGolClient {
         }
         return mAilGolClient;
     }
-    public rx.Observable<TableTeam> getTeamLeagues(@NonNull String leagueName){
+    public rx.Observable<FinalResultSoccerTable> getTeamLeagues(@NonNull String leagueName){
         return mApiSoccerRequest.getStandingsLegue(leagueName);
     }
 }

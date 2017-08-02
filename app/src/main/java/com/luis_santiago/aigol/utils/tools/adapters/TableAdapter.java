@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.*;
 
 import com.luis_santiago.aigol.R;
-import com.luis_santiago.aigol.utils.tools.pojos.TableTeam;
+import com.luis_santiago.aigol.SoccerApi.data.Standing;
 
 /**
  * Created by legendarywicho on 7/31/17.
@@ -18,14 +18,14 @@ import com.luis_santiago.aigol.utils.tools.pojos.TableTeam;
 
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapterHolder>{
 
-    private List <TableTeam> mTableTeams = new ArrayList<>();
+    private List <Standing> mTableTeams = new ArrayList<>();
 
 
-    public TableAdapter(List <TableTeam> team){
+    public TableAdapter(List <Standing> team){
         this.mTableTeams = team;
     }
 
-    public void setmTableTeams(List <TableTeam> team){
+    public void setTableTeams(List <Standing> team){
         if (team == null){
             return;
         }
@@ -44,16 +44,15 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
 
     @Override
     public void onBindViewHolder(TableAdapterHolder holder, int position) {
-        final TableTeam tableTeam = mTableTeams.get(position);
+        final Standing tableTeam = mTableTeams.get(position);
 
         // Setting up the hole reference on my views
         holder.position.setText(Integer.toString(tableTeam.getPosition()));
-        holder.imageView.setImageResource(tableTeam.getLogo());
-        holder.teamName.setText(tableTeam.getTeamName());
-        holder.matchesPlayed.setText(Integer.toString(tableTeam.getMp()));
-        holder.scores.setText(Integer.toString(tableTeam.getGf()));
-        holder.goalDiference.setText(Integer.toString(tableTeam.getGa()));
-        holder.points.setText(Integer.toString(tableTeam.getPts()));
+        holder.teamName.setText(tableTeam.getTeam());
+        holder.matchesPlayed.setText(Integer.toString(tableTeam.getOverall().getMatchesPlayed()));
+        holder.scores.setText(Integer.toString(tableTeam.getOverall().getScores()));
+        holder.goalDiference.setText(Integer.toString(tableTeam.getOverall().getGoalDifference()));
+        holder.points.setText(Integer.toString(tableTeam.getOverall().getPoints()));
     }
 
     @Override

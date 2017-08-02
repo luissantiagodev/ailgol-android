@@ -31,6 +31,7 @@ public class HomeActivity extends AppCompatActivity {
     // This Bundle is for receiving data from the main Activity
     Bundle mBundle;
     public static String leagueName = "";
+    int checkNumber=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,6 @@ public class HomeActivity extends AppCompatActivity {
 
         leagueName = mBundle.getString(Keys.TEAM_NAME);
 
-        // Debugging
-        Toast.makeText(HomeActivity.this,"La liga en que estoy es:"+leagueName, Toast.LENGTH_SHORT).show();
 
         mBottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottom_bar);
         // Enabling text and icon view
@@ -56,7 +55,7 @@ public class HomeActivity extends AppCompatActivity {
         * */
         ScoresFragment scoresFragment = new ScoresFragment();
         settingFragment(scoresFragment);
-        setUpGreenIcon(1);
+        setUpGreenIcon(checkNumber);
     }
 
 
@@ -85,7 +84,7 @@ public class HomeActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
             final Menu menu = mBottomNavigationViewEx.getMenu();
-            int checkNumber = mBottomNavigationViewEx.getMenuItemPosition(item);
+            checkNumber = mBottomNavigationViewEx.getMenuItemPosition(item);
 
 
             switch (item.getItemId()){
@@ -130,5 +129,10 @@ public class HomeActivity extends AppCompatActivity {
                 .setTransition(FragmentTransaction.TRANSIT_EXIT_MASK)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 }
