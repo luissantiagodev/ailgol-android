@@ -19,10 +19,9 @@ import java.util.ArrayList;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
 import com.luis_santiago.aigol.R;
-import com.luis_santiago.aigol.SoccerApi.AilGolClient;
+import com.luis_santiago.aigol.SoccerApi.data.Singletons.AilGolClient;
 import com.luis_santiago.aigol.SoccerApi.FinalResultSoccerTable;
 import com.luis_santiago.aigol.SoccerApi.data.Standing;
 import com.luis_santiago.aigol.menu.HomeActivity;
@@ -32,9 +31,6 @@ import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
-
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
-import static android.os.Build.VERSION_CODES.N;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -135,7 +131,6 @@ public class TablesFragment extends Fragment {
                 .setMessage("There is no internet connection")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
-                        // // This thing toocontinue with delete
                     }
                 });
         mBuilder.show();
@@ -144,7 +139,6 @@ public class TablesFragment extends Fragment {
     private Boolean weHaveInternet(){
         ConnectivityManager connectivityManager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-
         return networkInfo!=null && networkInfo.isConnected();
     }
 

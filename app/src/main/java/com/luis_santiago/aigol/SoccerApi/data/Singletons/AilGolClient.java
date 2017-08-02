@@ -1,9 +1,11 @@
-package com.luis_santiago.aigol.SoccerApi;
+package com.luis_santiago.aigol.SoccerApi.data.Singletons;
 
 import android.support.annotation.NonNull;
 
 
 import com.google.gson.Gson;
+import com.luis_santiago.aigol.SoccerApi.ApiSoccerRequest;
+import com.luis_santiago.aigol.SoccerApi.FinalResultSoccerTable;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 
 

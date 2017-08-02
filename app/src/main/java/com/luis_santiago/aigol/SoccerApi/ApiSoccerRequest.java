@@ -2,6 +2,7 @@ package com.luis_santiago.aigol.SoccerApi;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import rx.Observable;
 
 /**
  * Created by legendarywicho on 7/31/17.
@@ -14,8 +15,9 @@ public interface ApiSoccerRequest {
     rx.Observable<FinalResultSoccerTable> getStandingsLegue(@Path("league-slug") String league);
 
 
-    //TODO: Getting the latest result on the specific League they request
-
+    //Getting the latest result on the specific League they request
+    @GET("leagues/liga/seasons/17-18/rounds/round-{number}/matches?mashape-key=aSQCm3sGOxmshtcKn0a08CL7tRGFp1HLHROjsnV0X34F3IXFcX")
+    rx.Observable<String> getLatestResult (@Path("number") String leagueSlug);
 
     // TODO: Getting the general news of Soccer news
 }
