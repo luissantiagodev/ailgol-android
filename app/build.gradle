@@ -25,15 +25,20 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.3.1'
+    //ui
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:cardview-v7:21.0.3'
     compile 'com.android.support:recyclerview-v7:21.0.3'
     compile 'com.github.ittianyu:BottomNavigationViewEx:1.2.2'
+    // http request
     compile 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'io.reactivex:rxandroid:1.2.0'
     compile 'io.reactivex:rxjava:1.1.8'
+    //compatibility
     compile 'com.android.support:support-v4:25.3.1'
+    //time
+    compile 'net.danlew:android.joda:2.9.9'
     testCompile 'junit:junit:4.12'
 }

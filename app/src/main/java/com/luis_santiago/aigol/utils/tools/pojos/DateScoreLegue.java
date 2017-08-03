@@ -12,12 +12,16 @@ public class DateScoreLegue {
 
     Date mFrom;
     Date mTo;
-    Date currentDate;
+    int roundSlug;
 
-    public DateScoreLegue(Date mFrom, Date mTo, Date currentDate) {
+    public DateScoreLegue(Date mFrom, Date mTo, int round) {
         this.mFrom = mFrom;
         this.mTo = mTo;
-        this.currentDate = currentDate;
+        this.roundSlug = round;
+    }
+
+    public int getRoundSlug() {
+        return roundSlug;
     }
 
     public Date getmFrom() {
@@ -28,7 +32,4 @@ public class DateScoreLegue {
         return mTo;
     }
 
-    public Date getCurrentDate() {
-        return currentDate;
-    }
 }
