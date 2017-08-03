@@ -34,17 +34,7 @@ public class LatestRoundSlug {
             ourInstance = new LatestRoundSlug();
         }
 
-        Date dateToConvert = new Date();
-        DateFormat cr = new SimpleDateFormat("MM/dd/yyyy");
-        try {
-            dateToConvert = cr.parse("09/19/2017");
-        } catch (ParseException e) {
-            e.printStackTrace();
-            Log.e(TAG, "Error en la fecha");
-        }
-
-        //TODO: REMOVE IT'S JUST FOR DEBUGGING
-        return ourInstance.getSlugRound(dateToConvert);
+        return ourInstance.getSlugRound(new DateTime().toLocalDate());
     }
 
     private LatestRoundSlug() {
@@ -62,14 +52,17 @@ public class LatestRoundSlug {
         mDateScoreLegues.add(new DateScoreLegue(convertStringtoDate("11/19/2017"), convertStringtoDate("11/25/2017"),12)); // Round 12
         mDateScoreLegues.add(new DateScoreLegue(convertStringtoDate("11/26/2017"), convertStringtoDate("12/03/2017"),13)); // Round 13
         mDateScoreLegues.add(new DateScoreLegue(convertStringtoDate("12/04/2017"), convertStringtoDate("12/10/2017"),14)); // Round 14
-        thisIsForTesting();
       }
 
-    private int getSlugRound(Date currentDate){
+    private int getSlugRound(LocalDate currentDate){
         for(int i = 0; i<mDateScoreLegues.size(); i++){
             DateScoreLegue d = mDateScoreLegues.get(i);
+
+            Log.e(TAG, "FECHA DE INICIO"+d.getmFrom());
+            Log.e(TAG, "FECHA FINAL"+d.getmTo());
+            Log.e(TAG, "FECHA HOY"+currentDate);
             // If my current date is between one of these rounds then we will show that round
-            if(currentDate.after(d.getmFrom()) && currentDate.before(d.getmTo())){
+            if(!d.getmFrom().isAfter(currentDate) && !d.getmFrom().isAfter(d.getmTo())){
                 // Return the round slug
                 Log.e(TAG, "ESTOY DENTRO DE LA CONDICION");
                 return d.getRoundSlug();
@@ -78,25 +71,12 @@ public class LatestRoundSlug {
         return 0;
     }
 
-    private Date convertStringtoDate(String date){
+    private LocalDate convertStringtoDate(String date){
+        // Converting a  String into dateTime using Yoda Time
         String carl [];
-
         carl = date.split("/");
-
-        for (int i = 0; i<carl.length; i++){
-            Log.e(TAG, carl[i]);
-        }
-        // Convert String into dateTime in Yoda Time
-        return null;
-    }
-
-
-    private void thisIsForTesting(){
-        LocalDate now =  new DateTime(2017, 9, 9, 0, 0, 0, 0).toLocalDate();
-        LocalDate from = new DateTime(2017, 9, 8, 0, 0, 0, 0).toLocalDate();
-        LocalDate to = new DateTime(2017, 9, 10, 0, 0, 0, 0).toLocalDate();
-        if (!from.isAfter(now) && !from.isAfter(to)) {
-            Log.e(TAG, "SI CUMPLIO, DA LA JORNADA");
-        }
+        LocalDate localDate = new DateTime(Integer.parseInt(carl[2]), Integer.parseInt(carl[0]),
+                Integer.parseInt(carl[1]),0,0,0,0).toLocalDate();
+        return localDate;
     }
 }

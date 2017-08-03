@@ -1,6 +1,8 @@
 package com.luis_santiago.aigol.utils.tools.pojos;
 
 
+import org.joda.time.LocalDate;
+
 import java.util.Date;
 
 
@@ -10,11 +12,11 @@ import java.util.Date;
 
 public class DateScoreLegue {
 
-    Date mFrom;
-    Date mTo;
+    LocalDate mFrom;
+    LocalDate mTo;
     int roundSlug;
 
-    public DateScoreLegue(Date mFrom, Date mTo, int round) {
+    public DateScoreLegue(LocalDate mFrom, LocalDate mTo, int round) {
         this.mFrom = mFrom;
         this.mTo = mTo;
         this.roundSlug = round;
@@ -24,11 +26,11 @@ public class DateScoreLegue {
         return roundSlug;
     }
 
-    public Date getmFrom() {
+    public LocalDate getmFrom() {
         return mFrom;
     }
 
-    public Date getmTo() {
+    public LocalDate getmTo() {
         return mTo;
     }
 
