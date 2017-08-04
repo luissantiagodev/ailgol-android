@@ -1,6 +1,7 @@
 package com.luis_santiago.aigol.SoccerApi.api;
 
 import com.luis_santiago.aigol.SoccerApi.result.FinalResultSoccerTable;
+import com.luis_santiago.aigol.SoccerApi.result.FinalScoreResult;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -17,8 +18,8 @@ public interface ApiSoccerRequest {
 
 
     //Getting the latest result on the specific League they request
-    @GET("leagues/liga/seasons/17-18/rounds/round-{number}/matches?mashape-key=aSQCm3sGOxmshtcKn0a08CL7tRGFp1HLHROjsnV0X34F3IXFcX")
-    rx.Observable<String> getLatestResult (@Path("number") String leagueSlug);
+    @GET("leagues/{league}/seasons/17-18/rounds/round-{number}/matches?mashape-key=aSQCm3sGOxmshtcKn0a08CL7tRGFp1HLHROjsnV0X34F3IXFcX")
+    rx.Observable<FinalScoreResult> getLatestResult (@Path("number") String leagueSlug, @Path("league") String league);
 
     // TODO: Getting the general news of Soccer news
 }

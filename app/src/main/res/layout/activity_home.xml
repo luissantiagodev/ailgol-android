@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:background="?attr/colorPrimaryDark"
     android:layout_height="match_parent"
-    tools:context="com.luis_santiago.aigol.menu.HomeActivity">
+    tools:context="com.luis_santiago.aigol.ui.HomeActivity">
 
 
     <RelativeLayout

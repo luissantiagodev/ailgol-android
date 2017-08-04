@@ -3,7 +3,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              xmlns:app="http://schemas.android.com/apk/res-auto"
-             tools:context="com.luis_santiago.aigol.menu.fragments.TablesFragment">
+             tools:context="com.luis_santiago.aigol.ui.fragments.TablesFragment">
 
 
    <LinearLayout
@@ -103,20 +103,16 @@
                       android:textSize="18sp"
                       android:text="PTS"
                       />
-
               </LinearLayout>
            </LinearLayout>
        </LinearLayout>
-
 
        <android.support.v7.widget.RecyclerView
            android:id="@+id/recycle_view_table_fragment"
            android:layout_width="match_parent"
            android:minHeight="2dp"
            android:layout_height="match_parent">
-
        </android.support.v7.widget.RecyclerView>
+
    </LinearLayout>
-
-
 </FrameLayout>

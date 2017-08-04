@@ -2,7 +2,7 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context="com.luis_santiago.aigol.menu.fragments.NewsFragment">
+             tools:context="com.luis_santiago.aigol.ui.fragments.NewsFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView

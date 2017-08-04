@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.google.gson.Gson;
 import com.luis_santiago.aigol.SoccerApi.api.ApiSoccerRequest;
 import com.luis_santiago.aigol.SoccerApi.result.FinalResultSoccerTable;
+import com.luis_santiago.aigol.SoccerApi.result.FinalScoreResult;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 
 
@@ -28,9 +29,9 @@ public class AilGolClient {
 
 
     private AilGolClient(){
-        //Setting up Gson for the Json parsing
 
 
+        //Setting up retrofit with the builder
         final Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Keys.URL_BASE_TABLE_STANDINGS)
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -38,7 +39,7 @@ public class AilGolClient {
                 .build();
 
         // I get my Api interface to start the request
-        // To understand this better, is like if you create an intent
+        // To understand this better, is like creating a classic intent
         mApiSoccerRequest = retrofit.create(ApiSoccerRequest.class);
     }
 
@@ -48,7 +49,15 @@ public class AilGolClient {
         }
         return mAilGolClient;
     }
+
+    // This is for the season tables for position
     public rx.Observable<FinalResultSoccerTable> getTeamLeagues(@NonNull String leagueName){
         return mApiSoccerRequest.getStandingsLegue(leagueName);
     }
+
+    // This is for the latest results
+    public rx.Observable<FinalScoreResult> getLatestResults(@NonNull String roundSlug, String league){
+        return  mApiSoccerRequest.getLatestResult(roundSlug, league);
+    }
+
 }

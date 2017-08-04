@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import java.util.*;
 
 import com.luis_santiago.aigol.R;
-import com.luis_santiago.aigol.menu.HomeActivity;
+import com.luis_santiago.aigol.ui.HomeActivity;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 import com.luis_santiago.aigol.utils.tools.data.table.score.LeagueTeam;
 

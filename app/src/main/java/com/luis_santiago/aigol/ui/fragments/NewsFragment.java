@@ -1,4 +1,4 @@
-package com.luis_santiago.aigol.menu.fragments;
+package com.luis_santiago.aigol.ui.fragments;
 
 
 import android.os.Bundle;

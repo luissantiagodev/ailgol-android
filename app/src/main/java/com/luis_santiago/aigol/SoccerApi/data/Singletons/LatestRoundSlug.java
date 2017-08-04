@@ -55,8 +55,8 @@ public class LatestRoundSlug {
                 return d.getRoundSlug();
             }
         }
-        // If we don't get nothing, return 0
-        return 0;
+        // If we don't get nothing, return 1
+        return 1;
     }
 
     private LocalDate convertStringtoDate(String date){

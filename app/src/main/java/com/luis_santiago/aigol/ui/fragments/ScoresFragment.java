@@ -1,4 +1,4 @@
-package com.luis_santiago.aigol.menu.fragments;
+package com.luis_santiago.aigol.ui.fragments;
 
 
 import android.content.Context;
@@ -9,52 +9,56 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import java.util.*;
 import android.view.View;
-import java.util.ArrayList;
-
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.SoccerApi.data.Singletons.AilGolClient;
-import com.luis_santiago.aigol.SoccerApi.result.FinalResultSoccerTable;
+import com.luis_santiago.aigol.SoccerApi.data.Singletons.LatestRoundSlug;
+import com.luis_santiago.aigol.SoccerApi.result.FinalScoreResult;
+import com.luis_santiago.aigol.ui.HomeActivity;
+import com.luis_santiago.aigol.utils.tools.adapters.ScoreAdapters;
+import com.luis_santiago.aigol.utils.tools.data.latest.score.Data;
+import com.luis_santiago.aigol.utils.tools.data.latest.score.Match;
 import com.luis_santiago.aigol.utils.tools.data.table.score.Standing;
-import com.luis_santiago.aigol.menu.HomeActivity;
-import com.luis_santiago.aigol.utils.tools.adapters.TableAdapter;
+
+import net.danlew.android.joda.JodaTimeAndroid;
 
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static android.content.ContentValues.TAG;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TablesFragment extends Fragment {
+public class ScoresFragment extends Fragment {
 
-    // This is for debugging
-    private String TAG = TablesFragment.class.getSimpleName();
-    private LinearLayoutManager mLayoutManager;
+    // This for getting our results from the observable
+    private Subscription mSubscription;
+    private RecyclerView.LayoutManager mLayoutManager;
+    //RecycleView UI
     private RecyclerView mRecyclerView;
-    private TableAdapter mTableAdapter;
-    // This is for the progress bar, when we have conection it's remove
+    //Builder for the dialog incase there is no internet
+    private AlertDialog.Builder mBuilder;
+    private CardView cardView;
+    private ArrayList<Match> mTableTeamArrayList;
+    // Setting the adapter
+    private ScoreAdapters mScoreAdapters;
     private LinearLayout mLinearLayout;
-    // This thing too
-    private ProgressBar isThereInternetConnection;
-    // This is for getting all the data from the Observer
-    Subscription mSubscription;
-    //Creating a Dialog if there isn't no internet
-    AlertDialog.Builder mBuilder;
-    // The list we are going to display
-    ArrayList<Standing> mTableTeamArrayList;
 
 
-    public TablesFragment() {
+    public ScoresFragment() {
         // Required empty public constructor
     }
 
@@ -62,62 +66,52 @@ public class TablesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_tables, container, false);
-        // Finding the second recycle view
-        mRecyclerView= (RecyclerView) view.findViewById(R.id.recycle_view_table_fragment);
-        //Setting the reference on to the main activity
-        mLayoutManager = new LinearLayoutManager(view.getContext());
-        // Setting the Layout manager
+        View view = inflater.inflate(R.layout.fragment_scores, container, false);
+        // Initializing the time Library
+        JodaTimeAndroid.init(getContext());
+
+        mLayoutManager = new LinearLayoutManager(getContext());
+        mRecyclerView = (RecyclerView)view.findViewById(R.id.recycle_view_table_fragment);
+        cardView = (CardView) view.findViewById(R.id.cardview_score);
+        mLinearLayout = (LinearLayout)view.findViewById(R.id.progress_bar_layout_score);
+
+        // setting the layout manager
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mLinearLayout = (LinearLayout) view.findViewById(R.id.progress_bar_layout);
-        isThereInternetConnection = (ProgressBar) view.findViewById(R.id.progress_bar_interner);
 
-        /**
-         * This is just for testing, delete after request
-         */
-        mTableTeamArrayList= new ArrayList<>();
+        mTableTeamArrayList = new ArrayList<>();
 
-        mTableAdapter =  new TableAdapter(mTableTeamArrayList);
-        mRecyclerView.setAdapter(mTableAdapter);
+        mScoreAdapters = new ScoreAdapters(mTableTeamArrayList);
+
+        mRecyclerView.setAdapter(mScoreAdapters);
 
         return view;
     }
 
-    private void getLeagueTeams(){
+
+    private void getLatestScores (){
         mSubscription = AilGolClient.getInstance()
-                .getTeamLeagues(HomeActivity.leagueName)
+                // We get the Last round from a singleton for the current date
+                .getLatestResults(Integer.toString(LatestRoundSlug.getInstance()),HomeActivity.leagueName)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<FinalResultSoccerTable>() {
+                .subscribe(new Observer<FinalScoreResult>() {
                     @Override
                     public void onCompleted() {
 
                     }
+
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, ""+e);
+                        Log.e("ScoresFragment", "We have an error"+e);
                     }
+
                     @Override
-                    public void onNext(FinalResultSoccerTable finalResultSoccerTable) {
-                        Log.e(TAG, "Im starting the request");
+                    public void onNext(FinalScoreResult finalScoreResult) {
+                        Log.e("ScoresFragment", "We are having data");
                         mLinearLayout.setVisibility(View.GONE);
-                        mTableAdapter.setTableTeams(finalResultSoccerTable.getData().getStandings());
+                       mScoreAdapters.setTableTeams(finalScoreResult.getData().getMatches());
                     }
                 });
-    }
-
-    @Override
-    public void onResume() {
-      super.onResume();
-        if(weHaveInternet()){
-            Log.e(TAG, "we have internet");
-            getLeagueTeams();
-        }
-        else{
-            throwUpDialogue();
-            Log.e(TAG, "we don't have internet");
-            isThereInternetConnection.setVisibility(View.GONE);
-        }
     }
 
     private void throwUpDialogue(){
@@ -131,6 +125,7 @@ public class TablesFragment extends Fragment {
                 .setMessage("There is no internet connection")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
+                        // do nothing
                     }
                 });
         mBuilder.show();
@@ -142,4 +137,16 @@ public class TablesFragment extends Fragment {
         return networkInfo!=null && networkInfo.isConnected();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(weHaveInternet()){
+            Log.e(TAG, "we have internet");
+            getLatestScores();
+        }
+        else{
+            throwUpDialogue();
+            Log.e(TAG, "we don't have internet");
+        }
+    }
 }

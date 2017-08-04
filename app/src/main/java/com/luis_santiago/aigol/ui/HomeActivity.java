@@ -1,27 +1,20 @@
-package com.luis_santiago.aigol.menu;
+package com.luis_santiago.aigol.ui;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
-import com.luis_santiago.aigol.MainActivity;
 import com.luis_santiago.aigol.R;
-import com.luis_santiago.aigol.menu.fragments.NewsFragment;
-import com.luis_santiago.aigol.menu.fragments.ScoresFragment;
-import com.luis_santiago.aigol.menu.fragments.TablesFragment;
+import com.luis_santiago.aigol.ui.fragments.NewsFragment;
+import com.luis_santiago.aigol.ui.fragments.ScoresFragment;
+import com.luis_santiago.aigol.ui.fragments.TablesFragment;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
-
-import static android.R.attr.id;
 
 public class HomeActivity extends AppCompatActivity {
 
