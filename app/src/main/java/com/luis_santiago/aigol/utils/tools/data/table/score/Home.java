@@ -1,4 +1,4 @@
-package com.luis_santiago.aigol.SoccerApi.data;
+package com.luis_santiago.aigol.utils.tools.data.table.score;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by legendarywicho on 8/1/17.
  */
 
-public class Away {
+public class Home {
     @SerializedName("wins")
     @Expose
     private Integer wins;
@@ -107,5 +107,4 @@ public class Away {
     public void setGoalDifference(Integer goalDifference) {
         this.goalDifference = goalDifference;
     }
-
 }

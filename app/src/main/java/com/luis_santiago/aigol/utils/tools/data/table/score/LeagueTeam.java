@@ -1,4 +1,4 @@
-package com.luis_santiago.aigol.utils.tools.pojos;
+package com.luis_santiago.aigol.utils.tools.data.table.score;
 
 /**
  * Created by legendarywicho on 7/28/17.

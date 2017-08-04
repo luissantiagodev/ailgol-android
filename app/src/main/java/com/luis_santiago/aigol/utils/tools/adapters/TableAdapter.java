@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.*;
 
 import com.luis_santiago.aigol.R;
-import com.luis_santiago.aigol.SoccerApi.data.Standing;
+import com.luis_santiago.aigol.utils.tools.data.table.score.Standing;
 
 /**
  * Created by legendarywicho on 7/31/17.

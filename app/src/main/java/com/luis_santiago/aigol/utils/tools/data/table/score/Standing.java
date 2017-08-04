@@ -1,4 +1,4 @@
-package com.luis_santiago.aigol.SoccerApi.data;
+package com.luis_santiago.aigol.utils.tools.data.table.score;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

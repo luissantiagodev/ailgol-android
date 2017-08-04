@@ -1,4 +1,4 @@
-package com.luis_santiago.aigol.SoccerApi.data;
+package com.luis_santiago.aigol.utils.tools.data.table.score;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
  * Created by legendarywicho on 8/1/17.
  */
 
-public class Home {
+public class Overall {
     @SerializedName("wins")
     @Expose
     private Integer wins;
@@ -17,15 +17,15 @@ public class Home {
     @SerializedName("losts")
     @Expose
     private Integer losts;
+    @SerializedName("points")
+    @Expose
+    private Integer points;
     @SerializedName("scores")
     @Expose
     private Integer scores;
     @SerializedName("conceded")
     @Expose
     private Integer conceded;
-    @SerializedName("points")
-    @Expose
-    private Integer points;
     @SerializedName("last_5")
     @Expose
     private String last5;
@@ -60,6 +60,14 @@ public class Home {
         this.losts = losts;
     }
 
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
     public Integer getScores() {
         return scores;
     }
@@ -74,14 +82,6 @@ public class Home {
 
     public void setConceded(Integer conceded) {
         this.conceded = conceded;
-    }
-
-    public Integer getPoints() {
-        return points;
-    }
-
-    public void setPoints(Integer points) {
-        this.points = points;
     }
 
     public String getLast5() {
@@ -107,4 +107,5 @@ public class Home {
     public void setGoalDifference(Integer goalDifference) {
         this.goalDifference = goalDifference;
     }
+
 }

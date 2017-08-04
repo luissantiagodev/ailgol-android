@@ -4,16 +4,12 @@ package com.luis_santiago.aigol.menu.fragments;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import java.util.ArrayList;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.SoccerApi.data.Singletons.LatestRoundSlug;
-import com.luis_santiago.aigol.menu.HomeActivity;
-import com.luis_santiago.aigol.utils.tools.Keys.Keys;
-import com.luis_santiago.aigol.utils.tools.pojos.DateScoreLegue;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 

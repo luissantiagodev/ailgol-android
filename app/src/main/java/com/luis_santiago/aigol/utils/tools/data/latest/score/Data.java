@@ -1,17 +1,17 @@
-package com.luis_santiago.aigol.SoccerApi.data;
+package com.luis_santiago.aigol.utils.tools.data.latest.score;
 
 import com.google.gson.annotations.Expose;
+import java.util.List;
 import com.google.gson.annotations.SerializedName;
-import java.util.*;
 
 /**
- * Created by legendarywicho on 8/1/17.
+ * Created by legendarywicho on 8/3/17.
  */
 
 public class Data {
-    @SerializedName("standings")
+    @SerializedName("matches")
     @Expose
-    private List<Standing> standings = null;
+    private List<Match> matches = null;
     @SerializedName("statusCode")
     @Expose
     private String statusCode;
@@ -22,12 +22,12 @@ public class Data {
     @Expose
     private String statusReason;
 
-    public List<Standing> getStandings() {
-        return standings;
+    public List<Match> getMatches() {
+        return matches;
     }
 
-    public void setStandings(List<Standing> standings) {
-        this.standings = standings;
+    public void setMatches(List<Match> matches) {
+        this.matches = matches;
     }
 
     public String getStatusCode() {
@@ -53,4 +53,5 @@ public class Data {
     public void setStatusReason(String statusReason) {
         this.statusReason = statusReason;
     }
+
 }

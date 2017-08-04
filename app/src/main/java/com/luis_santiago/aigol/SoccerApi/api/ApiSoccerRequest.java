@@ -1,8 +1,9 @@
-package com.luis_santiago.aigol.SoccerApi;
+package com.luis_santiago.aigol.SoccerApi.api;
+
+import com.luis_santiago.aigol.SoccerApi.result.FinalResultSoccerTable;
 
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  * Created by legendarywicho on 7/31/17.

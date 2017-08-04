@@ -22,8 +22,8 @@ import android.widget.ProgressBar;
 
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.SoccerApi.data.Singletons.AilGolClient;
-import com.luis_santiago.aigol.SoccerApi.FinalResultSoccerTable;
-import com.luis_santiago.aigol.SoccerApi.data.Standing;
+import com.luis_santiago.aigol.SoccerApi.result.FinalResultSoccerTable;
+import com.luis_santiago.aigol.utils.tools.data.table.score.Standing;
 import com.luis_santiago.aigol.menu.HomeActivity;
 import com.luis_santiago.aigol.utils.tools.adapters.TableAdapter;
 

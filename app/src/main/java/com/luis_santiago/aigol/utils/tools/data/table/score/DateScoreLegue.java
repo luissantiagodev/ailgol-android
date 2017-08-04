@@ -1,9 +1,7 @@
-package com.luis_santiago.aigol.utils.tools.pojos;
+package com.luis_santiago.aigol.utils.tools.data.table.score;
 
 
 import org.joda.time.LocalDate;
-
-import java.util.Date;
 
 
 /**

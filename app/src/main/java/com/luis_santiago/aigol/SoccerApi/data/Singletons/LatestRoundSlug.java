@@ -2,23 +2,14 @@ package com.luis_santiago.aigol.SoccerApi.data.Singletons;
 
 import android.util.Log;
 
-import com.luis_santiago.aigol.utils.tools.pojos.DateScoreLegue;
-
-import net.danlew.android.joda.JodaTimeAndroid;
+import com.luis_santiago.aigol.utils.tools.data.table.score.DateScoreLegue;
 
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
-import org.joda.time.ReadableDateTime;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
-import static android.R.attr.x;
 import static android.content.ContentValues.TAG;
-import static android.icu.text.UnicodeSet.CASE;
-import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 /**
  * Created by legendarywicho on 8/2/17.
@@ -33,11 +24,11 @@ public class LatestRoundSlug {
         if(ourInstance == null){
             ourInstance = new LatestRoundSlug();
         }
-
         return ourInstance.getSlugRound(new DateTime().toLocalDate());
     }
 
     private LatestRoundSlug() {
+        //TODO: store this in a table database
         mDateScoreLegues.add(new DateScoreLegue(convertStringtoDate("08/18/2017"), convertStringtoDate("08/24/2017"),1)); // Round 1
         mDateScoreLegues.add(new DateScoreLegue(convertStringtoDate("08/25/2017"), convertStringtoDate("08/28/2017"),2)); // Round 2
         mDateScoreLegues.add(new DateScoreLegue(convertStringtoDate("09/08/2017"), convertStringtoDate("09/10/2017"),3)); // Round 3
@@ -57,17 +48,14 @@ public class LatestRoundSlug {
     private int getSlugRound(LocalDate currentDate){
         for(int i = 0; i<mDateScoreLegues.size(); i++){
             DateScoreLegue d = mDateScoreLegues.get(i);
-
-            Log.e(TAG, "FECHA DE INICIO"+d.getmFrom());
-            Log.e(TAG, "FECHA FINAL"+d.getmTo());
-            Log.e(TAG, "FECHA HOY"+currentDate);
             // If my current date is between one of these rounds then we will show that round
             if(!d.getmFrom().isAfter(currentDate) && !d.getmFrom().isAfter(d.getmTo())){
                 // Return the round slug
-                Log.e(TAG, "ESTOY DENTRO DE LA CONDICION");
+                Log.e(TAG, "I've sent the round slug");
                 return d.getRoundSlug();
             }
         }
+        // If we don't get nothing, return 0
         return 0;
     }
 
