@@ -3,7 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
     <android.support.v7.widget.CardView
         android:id="@+id/cardview_score"
         android:layout_width="match_parent"
@@ -12,7 +12,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        app:cardBackgroundColor="@color/gray"
+        app:cardBackgroundColor="@color/colorPrimary"
         android:layout_height="310dp">
 
         <LinearLayout
@@ -27,6 +27,7 @@
                 android:layout_weight="2">
 
                 <ImageView
+                    android:id="@+id/image_news_main"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:src="@drawable/neymar"
@@ -46,6 +47,7 @@
                 >
 
                 <TextView
+                    android:id="@+id/main_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="@color/white"
@@ -55,23 +57,15 @@
                     android:text="Neymar al PSG"
                     />
                 <TextView
+                    android:id="@+id/description"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:textColor="@color/white"
                     android:layout_marginTop="5dp"
                     android:textSize="16sp"
+                    android:layout_marginEnd="20dp"
                     android:layout_marginStart="10dp"
-                    android:text="Neymar acaba de terminar su contrato con el Barcelona Ya se ira la averga."
-                    />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/white"
-                    android:layout_marginTop="5dp"
-                    android:textSize="18sp"
-                    android:layout_marginStart="10dp"
-                    android:text="Ver mas"
+                    android:text="Neymar acaba de terminar su contrato con el Barcelona  Ya se ira al PSG."
                     />
             </LinearLayout>
         </LinearLayout>
