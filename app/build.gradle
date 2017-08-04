@@ -40,5 +40,7 @@ dependencies {
     compile 'com.android.support:support-v4:25.3.1'
     //time
     compile 'net.danlew:android.joda:2.9.9'
+    // image downloading
+    compile 'com.squareup.picasso:picasso:2.5.2'
     testCompile 'junit:junit:4.12'
 }
