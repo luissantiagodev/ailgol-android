@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "11443041718",
+    "firebase_url": "https://ailgol-980f1.firebaseio.com",
+    "project_id": "ailgol-980f1",
+    "storage_bucket": "ailgol-980f1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:11443041718:android:06460fee7c6ea867",
+        "android_client_info": {
+          "package_name": "com.luis_santiago.aigol"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "11443041718-m5js84fbouviv37ud2p13n9krj3ggquc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.luis_santiago.aigol",
+            "certificate_hash": "dfaa942fccab884bab9643a7a42339805e2b50e6"
+          }
+        },
+        {
+          "client_id": "11443041718-ui6mql3tovin3gi5p922qlt672r3eio9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAdEOW-oaLF4FRPaIAkqmtzVbmAxKAxWrc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "11443041718-ui6mql3tovin3gi5p922qlt672r3eio9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

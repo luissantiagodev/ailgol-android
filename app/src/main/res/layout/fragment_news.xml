@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_marginTop="60dp"
+        android:paddingBottom="20dp"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:id="@+id/progress_bar_layout_news"
