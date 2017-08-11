@@ -22,8 +22,10 @@ import java.util.ArrayList;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,12 +38,16 @@ import com.luis_santiago.aigol.utils.tools.adapters.TableAdapter;
 import com.luis_santiago.aigol.utils.tools.data.news.score.TableTeam;
 import com.luis_santiago.aigol.utils.tools.utils.Utils;
 
+import org.w3c.dom.Text;
+
 import rx.Observer;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.os.Build.VERSION_CODES.M;
+import static android.webkit.ConsoleMessage.MessageLevel.LOG;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -52,7 +58,7 @@ public class TablesFragment extends Fragment {
     private String TAG = TablesFragment.class.getSimpleName();
     private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
-    // This is for the progress bar, when we have conection it's remove
+    // Progress bar, when we have conection it's remove
     private LinearLayout mLinearLayout;
     // This thing too
     private ProgressBar isThereInternetConnection;
@@ -62,22 +68,19 @@ public class TablesFragment extends Fragment {
     ArrayList<TableTeam> mTableTeamArrayList;
     private TableAdapter mTableAdapter;
     private DatabaseReference mDatabase;
-
+    //Textview from appbar
+    private TextView textAppBar;
+    private boolean haveUpdated = false;
 
     public TablesFragment() {
         // Required empty public constructor
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tables, container, false);
-        //Casting all the UI components
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_table_fragment);
-        mLinearLayout = (LinearLayout) view.findViewById(R.id.progress_bar_layout);
-        isThereInternetConnection = (ProgressBar) view.findViewById(R.id.progress_bar_interner);
-        swipeRefreshLayout = (SwipeRefreshLayout) getActivity().findViewById(R.id.swipe);
+        init(view);
         // Setting the color
         swipeRefreshLayout.setColorSchemeResources(
                 R.color.progress_color,
@@ -85,6 +88,7 @@ public class TablesFragment extends Fragment {
                 R.color.white
                 );
         mLayoutManager = new LinearLayoutManager(view.getContext());
+        //
         mRecyclerView.setLayoutManager(mLayoutManager);
         // Setting our refreshListener
         swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
@@ -97,28 +101,66 @@ public class TablesFragment extends Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         //Finding the correct reference to read our data
         DatabaseReference standing = mDatabase.child("Standings").child("LigaEspañola");
+        standing.keepSynced(true);
         // To read our data we need to add the value Listener
         Query query = standing.orderByChild("position");
         query.addListenerForSingleValueEvent(valueEventListener);
+
+
+        standing.addValueEventListener(new ValueEventListener() {
+            ArrayList<TableTeam> refreshList = new ArrayList<>();
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Log.e(TAG, "I GOT NEW DATA");
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    Long position = (Long) snapshot.child("position").getValue();
+                    String name = (String) snapshot.child("name").getValue();
+                    String logo = (String) snapshot.child("team_logo").getValue();
+                    Long matchesPlayed = (Long) snapshot.child("matches_played").getValue();
+                    Long goalDifference = (Long) snapshot.child("goal_difference").getValue();
+                    Long goalFor = (Long) snapshot.child("goal_for").getValue();
+                    Long goalAfter = (Long) snapshot.child("goal_afer").getValue();
+                    Long points = (Long) snapshot.child("points").getValue();
+                    Log.e(TAG, "THE NEW POSITION"+Long.toString(points));
+                    TableTeam tableTeam = new TableTeam(
+                            Long.toString(position),
+                            logo,
+                            name,
+                            Long.toString(matchesPlayed),
+                            Long.toString(goalFor),
+                            Long.toString(goalAfter),
+                            Long.toString(goalDifference),
+                            Long.toString(points)
+                    );
+                    refreshList.add(tableTeam);
+                }
+                mTableTeamArrayList = refreshList;
+                haveUpdated = true;
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         return view;
     }
 
     SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
         @Override
         public void onRefresh() {
-            Toast.makeText(getContext(), "Im refreshing", Toast.LENGTH_SHORT).show();
             swipeRefreshLayout.setRefreshing(true);
             (new Handler()).postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     swipeRefreshLayout.setRefreshing(false);
-                    int min = 65;
-                    int max = 50;
-
-                    Random random = new Random();
-                    int i = random.nextInt(max - min + 1) + min;
+                    if(mTableTeamArrayList!=null && haveUpdated){
+                        mTableAdapter.setTableTeams(mTableTeamArrayList);
+                        mTableTeamArrayList.clear();
+                        haveUpdated = false;
+                    }
                 }
-            }, 3000);
+            }, 2000);
         }
     };
 
@@ -150,9 +192,9 @@ public class TablesFragment extends Fragment {
                 finalList.add(tableTeam);
                 Log.e("Tables", "lol"+tableTeam);
             }
-            Log.e("MI ARRAY", "LOS DATOS CAMBIARON");
             mTableAdapter.setTableTeams(finalList);
             mLinearLayout.setVisibility(View.GONE);
+            Log.e(TAG, "THE FINAL SIZE ARRAY"+finalList.size());
         }
 
         @Override
@@ -173,6 +215,11 @@ public class TablesFragment extends Fragment {
     }
 
     private void init(View view){
-
+        //Casting all the UI components
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_table_fragment);
+        mLinearLayout = (LinearLayout) view.findViewById(R.id.progress_bar_layout);
+        isThereInternetConnection = (ProgressBar) view.findViewById(R.id.progress_bar_interner);
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        textAppBar = (TextView) getActivity().findViewById(R.id.text_bar);
     }
 }
