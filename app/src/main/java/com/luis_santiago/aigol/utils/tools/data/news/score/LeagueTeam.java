@@ -1,7 +1,7 @@
-package com.luis_santiago.aigol.utils.tools.data.table.score;
+package com.luis_santiago.aigol.utils.tools.data.news.score;
 
 /**
- * Created by legendarywicho on 7/28/17.
+ * Created by legendarywicho on 8/10/17.
  */
 
 public class LeagueTeam {

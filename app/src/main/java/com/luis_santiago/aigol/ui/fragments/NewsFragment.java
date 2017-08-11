@@ -9,7 +9,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,14 +20,8 @@ import android.widget.LinearLayout;
 
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.SoccerApi.data.Singletons.AigolClientNews;
-import com.luis_santiago.aigol.SoccerApi.data.Singletons.AilGolClient;
-import com.luis_santiago.aigol.SoccerApi.data.Singletons.LatestRoundSlug;
-import com.luis_santiago.aigol.SoccerApi.result.FinalScoreResult;
 import com.luis_santiago.aigol.SoccerApi.result.NewsFinalResult;
-import com.luis_santiago.aigol.ui.HomeActivity;
 import com.luis_santiago.aigol.utils.tools.adapters.NewsAdapter;
-import com.luis_santiago.aigol.utils.tools.adapters.ScoreAdapters;
-import com.luis_santiago.aigol.utils.tools.data.latest.score.Match;
 import com.luis_santiago.aigol.utils.tools.data.news.score.Article;
 
 import rx.*;
@@ -59,7 +52,6 @@ public class NewsFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -83,10 +75,8 @@ public class NewsFragment extends Fragment {
         return view;
     }
 
-
-    private void getLatestScores (){
+    private void setUpRequest(){
         mSubscription = AigolClientNews.getInstance()
-                // We get the Last round from a singleton for the current date
                 .getLatestNews()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -98,7 +88,7 @@ public class NewsFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(TAG, "ERROR "+e);
+
                     }
 
                     @Override
@@ -108,7 +98,6 @@ public class NewsFragment extends Fragment {
                     }
                 });
     }
-
     private void throwUpDialogue(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mBuilder = new AlertDialog.Builder(getContext(), android.R.style.Theme_Material_Dialog_Alert);
@@ -137,7 +126,7 @@ public class NewsFragment extends Fragment {
         super.onResume();
         if(weHaveInternet()){
             Log.e(TAG, "we have internet");
-            getLatestScores();
+            setUpRequest();
         }
         else{
             throwUpDialogue();

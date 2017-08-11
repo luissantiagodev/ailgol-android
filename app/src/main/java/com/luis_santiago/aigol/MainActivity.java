@@ -6,7 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.luis_santiago.aigol.utils.tools.adapters.LeagueAdapter;
-import com.luis_santiago.aigol.utils.tools.data.table.score.LeagueTeam;
+import com.luis_santiago.aigol.utils.tools.data.news.score.LeagueTeam;
 
 import java.util.*;
 

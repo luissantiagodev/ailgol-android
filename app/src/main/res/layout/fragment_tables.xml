@@ -25,7 +25,6 @@
            android:indeterminateTint="@color/progress_color"
            android:layout_height="70dp"
            />
-
            <TextView
                android:id="@+id/thereIsInternet"
                android:layout_width="match_parent"
@@ -52,7 +51,7 @@
                <TextView
                    android:layout_width="0dp"
                    android:layout_height="wrap_content"
-                   android:layout_weight="1"
+                   android:layout_weight=".4"
                    android:textColor="@color/white"
                    android:textSize="18sp"
                    android:layout_marginStart="10dp"
@@ -93,6 +92,15 @@
                       android:layout_height="wrap_content"
                       android:textSize="18sp"
                       android:text="GA"
+                      />
+                  <TextView
+                      android:layout_width="0dp"
+                      android:layout_weight=".4"
+                      android:gravity="center"
+                      android:textColor="@color/white"
+                      android:layout_height="wrap_content"
+                      android:textSize="18sp"
+                      android:text="GD"
                       />
                   <TextView
                       android:layout_width="0dp"

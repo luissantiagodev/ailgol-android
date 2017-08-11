@@ -5,8 +5,6 @@ package com.luis_santiago.aigol.utils.tools.Keys;
  */
 
 public class Keys {
-
-    public static String URL_BASE_TABLE_STANDINGS = "https://sportsop-soccer-sports-open-data-v1.p.mashape.com/v1/";
     public static String TEAM_NAME = "team name";
     public static String URL_BASE_NEWS= "https://newsapi.org/v1/";
 }

@@ -9,11 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luis_santiago.aigol.R;
-import com.luis_santiago.aigol.SoccerApi.data.Singletons.LatestRoundSlug;
-import com.luis_santiago.aigol.SoccerApi.result.FinalScoreResult;
-import com.luis_santiago.aigol.utils.tools.data.latest.score.Data;
-import com.luis_santiago.aigol.utils.tools.data.latest.score.Match;
-import com.luis_santiago.aigol.utils.tools.data.table.score.Standing;
 
 
 /**
@@ -21,14 +16,14 @@ import com.luis_santiago.aigol.utils.tools.data.table.score.Standing;
  */
 
 public class ScoreAdapters extends RecyclerView.Adapter <ScoreAdapters.HoldViewer>{
-    private List <Match> mScoreArraList = new ArrayList<>();
+    private List <String> mScoreArraList = new ArrayList<>();
 
 
-    public ScoreAdapters(List<Match> fl){
+    public ScoreAdapters(List<String> fl){
         this.mScoreArraList = fl;
     }
 
-    public void setTableTeams(List <Match> team){
+    public void setTableTeams(List <String> team){
         if (team == null){
             return;
         }
@@ -48,28 +43,6 @@ public class ScoreAdapters extends RecyclerView.Adapter <ScoreAdapters.HoldViewe
     @Override
     public void onBindViewHolder(HoldViewer holder, int position) {
 
-        Match finalScoreResult = mScoreArraList.get(position);
-
-        holder.nameAwayTeam
-                .setText(finalScoreResult
-                        .getAway()
-                        .getTeam());
-
-        holder.nameHomeTeam
-                .setText(finalScoreResult
-                        .getHome()
-                        .getTeam());
-
-        String result = finalScoreResult.getMatchResult();
-            if(result.isEmpty() || equals("")){
-                result = "0-0";
-            }
-        holder.finalScore
-                .setText(result);
-
-        holder.slugRound
-                .setText(Integer.
-                        toString(LatestRoundSlug.getInstance()));
     }
 
     @Override

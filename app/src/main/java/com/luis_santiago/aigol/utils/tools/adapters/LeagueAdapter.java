@@ -14,7 +14,7 @@ import java.util.*;
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.ui.HomeActivity;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
-import com.luis_santiago.aigol.utils.tools.data.table.score.LeagueTeam;
+import com.luis_santiago.aigol.utils.tools.data.news.score.LeagueTeam;
 
 /**
  * Created by legendarywicho on 7/28/17.
