@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -37,7 +38,7 @@ public class HomeActivity extends AppCompatActivity {
 
         leagueName = mBundle.getString(Keys.TEAM_NAME);
 
-
+        Log.e("Main activity", "IM at the "+leagueName);
         mBottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottom_bar);
         // Enabling text and icon view
         setUpNavegation();

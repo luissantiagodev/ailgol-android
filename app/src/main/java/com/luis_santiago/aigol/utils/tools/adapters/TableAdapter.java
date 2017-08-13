@@ -1,5 +1,10 @@
 package com.luis_santiago.aigol.utils.tools.adapters;
 
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
+import android.os.Environment;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -8,11 +13,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.*;
 
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.utils.tools.data.news.score.TableTeam;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 
 /**
  * Created by legendarywicho on 7/31/17.
@@ -50,7 +59,18 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
 
         holder.position.setText(tableTeam.getPosition());
         String url = tableTeam.getLogo();
-        Picasso.with(holder.imageView.getContext()).load(url).into(holder.imageView);
+        Picasso.with(holder.imageView.getContext())
+                    .load(url)
+                    .into(holder.imageView, new Callback.EmptyCallback(){
+                        @Override
+                        public void onSuccess() {
+                            Log.e("ADAPTER", "Image loaded correctly");
+                        }
+                    });
+            Picasso.with(holder.imageView.getContext())
+                    .load(url)
+                    .into(target);
+
         holder.teamName.setText(tableTeam.getName());
         holder.matchesPlayed.setText(tableTeam.getMp());
         holder.goalFor.setText(tableTeam.getGf());
@@ -88,4 +108,33 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
              points = (TextView) v.findViewById(R.id.points);
          }
      }
+
+     private Target target = new Target() {
+         @Override
+         public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
+             new Thread(new Runnable() {
+                 @Override
+                 public void run() {
+                     File file = new File(Environment.getExternalStorageDirectory().getPath() + "/actress_wallpaper.jpg");
+                     try {
+                         file.createNewFile();
+                         FileOutputStream outputStream = new FileOutputStream(file);
+                         bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream);
+                     } catch (Exception e) {
+                         e.printStackTrace();
+                     }
+                 }
+             }).start();
+         }
+
+         @Override
+         public void onBitmapFailed(Drawable errorDrawable) {
+
+         }
+
+         @Override
+         public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+         }
+     };
 }

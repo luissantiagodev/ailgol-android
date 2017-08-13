@@ -100,7 +100,7 @@ public class TablesFragment extends Fragment {
         // Creating an instance of the database
         mDatabase = FirebaseDatabase.getInstance().getReference();
         //Finding the correct reference to read our data
-        DatabaseReference standing = mDatabase.child("Standings").child("LigaEspañola");
+        DatabaseReference standing = mDatabase.child("Standings").child(HomeActivity.leagueName);
         standing.keepSynced(true);
         // To read our data we need to add the value Listener
         Query query = standing.orderByChild("position");
@@ -111,27 +111,8 @@ public class TablesFragment extends Fragment {
             ArrayList<TableTeam> refreshList = new ArrayList<>();
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.e(TAG, "I GOT NEW DATA");
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Long position = (Long) snapshot.child("position").getValue();
-                    String name = (String) snapshot.child("name").getValue();
-                    String logo = (String) snapshot.child("team_logo").getValue();
-                    Long matchesPlayed = (Long) snapshot.child("matches_played").getValue();
-                    Long goalDifference = (Long) snapshot.child("goal_difference").getValue();
-                    Long goalFor = (Long) snapshot.child("goal_for").getValue();
-                    Long goalAfter = (Long) snapshot.child("goal_afer").getValue();
-                    Long points = (Long) snapshot.child("points").getValue();
-                    Log.e(TAG, "THE NEW POSITION"+Long.toString(points));
-                    TableTeam tableTeam = new TableTeam(
-                            Long.toString(position),
-                            logo,
-                            name,
-                            Long.toString(matchesPlayed),
-                            Long.toString(goalFor),
-                            Long.toString(goalAfter),
-                            Long.toString(goalDifference),
-                            Long.toString(points)
-                    );
+                    TableTeam tableTeam = generateTableTeam(snapshot);
                     refreshList.add(tableTeam);
                 }
                 mTableTeamArrayList = refreshList;
@@ -169,32 +150,11 @@ public class TablesFragment extends Fragment {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                Long position = (Long) snapshot.child("position").getValue();
-                String name = (String) snapshot.child("name").getValue();
-                String logo = (String) snapshot.child("team_logo").getValue();
-                Long matchesPlayed = (Long) snapshot.child("matches_played").getValue();
-                Long goalDifference = (Long) snapshot.child("goal_difference").getValue();
-                Long goalFor = (Long) snapshot.child("goal_for").getValue();
-                Long goalAfter = (Long) snapshot.child("goal_afer").getValue();
-                Long points = (Long) snapshot.child("points").getValue();
-
-                Log.e("POSITION",""+Long.toString(position));
-                TableTeam tableTeam = new TableTeam(
-                        Long.toString(position),
-                        logo,
-                        name,
-                        Long.toString(matchesPlayed),
-                        Long.toString(goalFor),
-                        Long.toString(goalAfter),
-                        Long.toString(goalDifference),
-                        Long.toString(points)
-                        );
+                TableTeam tableTeam = generateTableTeam(snapshot);
                 finalList.add(tableTeam);
-                Log.e("Tables", "lol"+tableTeam);
             }
             mTableAdapter.setTableTeams(finalList);
             mLinearLayout.setVisibility(View.GONE);
-            Log.e(TAG, "THE FINAL SIZE ARRAY"+finalList.size());
         }
 
         @Override
@@ -214,6 +174,29 @@ public class TablesFragment extends Fragment {
         }
     }
 
+
+    private TableTeam generateTableTeam(DataSnapshot snapshot){
+        Long position = (Long) snapshot.child("position").getValue();
+        String name = (String) snapshot.child("name").getValue();
+        String logo = (String) snapshot.child("team_logo").getValue();
+        Long matchesPlayed = (Long) snapshot.child("matches_played").getValue();
+        Long goalDifference = (Long) snapshot.child("goal_difference").getValue();
+        Long goalFor = (Long) snapshot.child("goal_for").getValue();
+        Long goalAfter = (Long) snapshot.child("goal_afer").getValue();
+        Long points = (Long) snapshot.child("points").getValue();
+        Log.e(TAG, "THE NEW POSITION"+Long.toString(points));
+        TableTeam tableTeam = new TableTeam(
+                Long.toString(position),
+                logo,
+                name,
+                Long.toString(matchesPlayed),
+                Long.toString(goalFor),
+                Long.toString(goalAfter),
+                Long.toString(goalDifference),
+                Long.toString(points)
+        );
+        return tableTeam;
+    }
     private void init(View view){
         //Casting all the UI components
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_table_fragment);
