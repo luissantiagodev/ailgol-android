@@ -64,7 +64,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
                     .into(holder.imageView, new Callback.EmptyCallback(){
                         @Override
                         public void onSuccess() {
-                            Log.e("ADAPTER", "Image loaded correctly");
+                           // do nothing for now
                         }
                     });
             Picasso.with(holder.imageView.getContext())

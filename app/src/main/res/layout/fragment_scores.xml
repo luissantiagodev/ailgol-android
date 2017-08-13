@@ -40,7 +40,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycle_view_table_fragment"
+            android:id="@+id/recycle_view_scores"
             android:layout_width="match_parent"
             android:minHeight="2dp"
             android:layout_height="match_parent">

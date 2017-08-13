@@ -48,6 +48,7 @@ import rx.schedulers.Schedulers;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.os.Build.VERSION_CODES.M;
 import static android.webkit.ConsoleMessage.MessageLevel.LOG;
+import static com.luis_santiago.aigol.utils.tools.utils.Utils.generateTableTeam;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -150,7 +151,7 @@ public class TablesFragment extends Fragment {
         @Override
         public void onDataChange(DataSnapshot dataSnapshot) {
             for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                TableTeam tableTeam = generateTableTeam(snapshot);
+                TableTeam tableTeam = Utils.generateTableTeam(snapshot);
                 finalList.add(tableTeam);
             }
             mTableAdapter.setTableTeams(finalList);
@@ -175,28 +176,7 @@ public class TablesFragment extends Fragment {
     }
 
 
-    private TableTeam generateTableTeam(DataSnapshot snapshot){
-        Long position = (Long) snapshot.child("position").getValue();
-        String name = (String) snapshot.child("name").getValue();
-        String logo = (String) snapshot.child("team_logo").getValue();
-        Long matchesPlayed = (Long) snapshot.child("matches_played").getValue();
-        Long goalDifference = (Long) snapshot.child("goal_difference").getValue();
-        Long goalFor = (Long) snapshot.child("goal_for").getValue();
-        Long goalAfter = (Long) snapshot.child("goal_afer").getValue();
-        Long points = (Long) snapshot.child("points").getValue();
-        Log.e(TAG, "THE NEW POSITION"+Long.toString(points));
-        TableTeam tableTeam = new TableTeam(
-                Long.toString(position),
-                logo,
-                name,
-                Long.toString(matchesPlayed),
-                Long.toString(goalFor),
-                Long.toString(goalAfter),
-                Long.toString(goalDifference),
-                Long.toString(points)
-        );
-        return tableTeam;
-    }
+
     private void init(View view){
         //Casting all the UI components
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_table_fragment);
