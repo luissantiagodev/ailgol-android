@@ -1,7 +1,7 @@
 # Ailgol
 Ailgol is an awesome app that you'll get the chance to know every score, standing of your favorite team! 
 # Download the app!
-You can download the app in this Link: https://drive.google.com/open?id=0B09KcMeLlBtFZEw5NHY1akdNd0E
+You can download the app in this Link:[Coming soon]
 ============
 ![oficialaigol](https://user-images.githubusercontent.com/21210652/29149228-6b58ea76-7d38-11e7-8c15-04bb7e99ad00.png)
 ============
