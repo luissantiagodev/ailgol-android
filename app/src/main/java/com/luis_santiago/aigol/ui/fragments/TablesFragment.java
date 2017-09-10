@@ -57,7 +57,6 @@ public class TablesFragment extends Fragment {
 
     // This is for debugging
     private String TAG = TablesFragment.class.getSimpleName();
-    private LinearLayoutManager mLayoutManager;
     private RecyclerView mRecyclerView;
     // Progress bar, when we have conection it's remove
     private LinearLayout mLinearLayout;
@@ -68,7 +67,6 @@ public class TablesFragment extends Fragment {
     // The list we are going to display
     ArrayList<TableTeam> mTableTeamArrayList;
     private TableAdapter mTableAdapter;
-    private DatabaseReference mDatabase;
     //Textview from appbar
     private TextView textAppBar;
     private boolean haveUpdated = false;
@@ -83,30 +81,22 @@ public class TablesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tables, container, false);
         init(view);
         // Setting the color
-        swipeRefreshLayout.setColorSchemeResources(
-                R.color.progress_color,
-                R.color.colorAccent,
-                R.color.white
-                );
-        mLayoutManager = new LinearLayoutManager(view.getContext());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(view.getContext());
         //
         mRecyclerView.setLayoutManager(mLayoutManager);
-        // Setting our refreshListener
-        swipeRefreshLayout.setOnRefreshListener(onRefreshListener);
         // Creating our list
         mTableTeamArrayList = new ArrayList<>();
         //Setting our adapter
         mTableAdapter = new TableAdapter(mTableTeamArrayList);
         mRecyclerView.setAdapter(mTableAdapter);
         // Creating an instance of the database
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         //Finding the correct reference to read our data
         DatabaseReference standing = mDatabase.child("Standings").child(HomeActivity.leagueName);
         standing.keepSynced(true);
         // To read our data we need to add the value Listener
         Query query = standing.orderByChild("position");
         query.addListenerForSingleValueEvent(valueEventListener);
-
 
         standing.addValueEventListener(new ValueEventListener() {
             ArrayList<TableTeam> refreshList = new ArrayList<>();
@@ -128,23 +118,6 @@ public class TablesFragment extends Fragment {
         return view;
     }
 
-    SwipeRefreshLayout.OnRefreshListener onRefreshListener = new SwipeRefreshLayout.OnRefreshListener() {
-        @Override
-        public void onRefresh() {
-            swipeRefreshLayout.setRefreshing(true);
-            (new Handler()).postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    swipeRefreshLayout.setRefreshing(false);
-                    if(mTableTeamArrayList!=null && haveUpdated){
-                        mTableAdapter.setTableTeams(mTableTeamArrayList);
-                        mTableTeamArrayList.clear();
-                        haveUpdated = false;
-                    }
-                }
-            }, 2000);
-        }
-    };
 
     ValueEventListener valueEventListener = new ValueEventListener() {
         ArrayList<TableTeam> finalList = new ArrayList<>();
@@ -182,7 +155,6 @@ public class TablesFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_table_fragment);
         mLinearLayout = (LinearLayout) view.findViewById(R.id.progress_bar_layout);
         isThereInternetConnection = (ProgressBar) view.findViewById(R.id.progress_bar_interner);
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
         textAppBar = (TextView) getActivity().findViewById(R.id.text_bar);
     }
 }

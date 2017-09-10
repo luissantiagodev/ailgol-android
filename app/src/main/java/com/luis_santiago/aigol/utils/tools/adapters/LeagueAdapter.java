@@ -14,7 +14,7 @@ import java.util.*;
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.ui.HomeActivity;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
-import com.luis_santiago.aigol.utils.tools.data.news.score.LeagueTeam;
+import com.luis_santiago.aigol.utils.tools.data.news.score.League;
 
 /**
  * Created by legendarywicho on 7/28/17.
@@ -22,11 +22,11 @@ import com.luis_santiago.aigol.utils.tools.data.news.score.LeagueTeam;
 
 public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.PhotoHolder>{
 
-    private ArrayList <LeagueTeam> mLeagueTeams = new ArrayList<>();
+    private ArrayList <League> mLeagueTeams = new ArrayList<>();
     //This is for sending the type of League we are in
     private Bundle mBundle;
 
-    public LeagueAdapter(ArrayList<LeagueTeam> lg){
+    public LeagueAdapter(ArrayList<League> lg){
         this.mLeagueTeams =lg;
     }
 
@@ -41,7 +41,7 @@ public class LeagueAdapter extends RecyclerView.Adapter<LeagueAdapter.PhotoHolde
     @Override
     public void onBindViewHolder(final LeagueAdapter.PhotoHolder holder, final int position) {
 
-        final LeagueTeam leagueTeam = mLeagueTeams.get(position);
+        final League leagueTeam = mLeagueTeams.get(position);
         holder.imageView.setImageResource(leagueTeam.getImageDrawable());
 
 

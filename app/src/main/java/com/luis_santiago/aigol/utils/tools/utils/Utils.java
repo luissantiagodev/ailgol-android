@@ -75,11 +75,16 @@ public class Utils {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    File file = new File(Environment.getExternalStorageDirectory().getPath() + "/team_logo.jpg");
+                    int numberToChangeNameOfFile= 0;
+                    File file = new File(Environment.getExternalStorageDirectory().getPath() +
+                            "/team_logo.jpg"+String.valueOf(numberToChangeNameOfFile));
                     try {
                         file.createNewFile();
                         FileOutputStream outputStream = new FileOutputStream(file);
                         bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream);
+                        //In order to save an image correctly we change the number to create a
+                        // diffent image file on local storage
+                        numberToChangeNameOfFile++;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -107,7 +112,7 @@ public class Utils {
         Long goalFor = (Long) snapshot.child("goal_for").getValue();
         Long goalAfter = (Long) snapshot.child("goal_afer").getValue();
         Long points = (Long) snapshot.child("points").getValue();
-        Log.e(TAG, "THE NEW POSITION"+Long.toString(points));
+        Log.e(TAG, "TEAM: "+name+ " POSTION: "+String.valueOf(position));
         TableTeam tableTeam = new TableTeam(
                 Long.toString(position),
                 logo,

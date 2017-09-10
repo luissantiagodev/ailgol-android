@@ -65,8 +65,6 @@ public class ScoreAdapters extends RecyclerView.Adapter <ScoreAdapters.HoldViewe
         return mScoreArraList.size();
     }
 
-
-
     public class HoldViewer extends RecyclerView.ViewHolder{
 
         private TextView slugRound;

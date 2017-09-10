@@ -46,18 +46,16 @@ import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 public class ScoresFragment extends Fragment {
 
     // This for getting our results from the observable
-    private Subscription mSubscription;
-    private RecyclerView.LayoutManager mLayoutManager;
+    private LinearLayoutManager mLayoutManager;
     //RecycleView UI
     private RecyclerView mRecyclerView;
     //Builder for the dialog incase there is no internet
-    private CardView cardView;
     private ArrayList<ScoreTeam> mTableTeamArrayList;
     // Setting the adapter
     private ScoreAdapters mScoreAdapters;
     private LinearLayout mLinearLayout;
     // This String is for knowing the legue to request
-    DatabaseReference mDatabase;
+    private DatabaseReference mDatabase;
 
 
     public ScoresFragment() {
@@ -82,12 +80,19 @@ public class ScoresFragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Log.e(TAG, "THE DATA IS "+ snapshot.getValue());
+                    String roundSlug = (String) snapshot.child("round_slug").getValue();
                     String finalScore = (String) snapshot.child("final_score").getValue();
                     String teamAway = (String) snapshot.child("team_away").getValue();
                     String teamAwayLogo = (String)snapshot.child("team_away_logo").getValue();
                     String teamHome = (String)snapshot.child("team_home").getValue();
                     String team_home_logo = (String) snapshot.child("team_home_logo").getValue();
-                    ScoreTeam scoreTeam = new ScoreTeam(finalScore,teamAway, teamAwayLogo, teamHome, team_home_logo);
+                    ScoreTeam scoreTeam = new ScoreTeam(
+                            roundSlug,
+                            finalScore,
+                            teamAway,
+                            teamAwayLogo,
+                            teamHome,
+                            team_home_logo);
                     mTableTeamArrayList.add(scoreTeam);
                 }
                 mScoreAdapters = new ScoreAdapters(mTableTeamArrayList);
@@ -97,9 +102,10 @@ public class ScoresFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.e(TAG, "There was an error");
             }
         });
+
         return view;
     }
 

@@ -4,13 +4,13 @@ package com.luis_santiago.aigol.utils.tools.data.news.score;
  * Created by legendarywicho on 8/10/17.
  */
 
-public class LeagueTeam {
+public class League {
 
     private int imageDrawable;
     private String leagueName;
 
 
-    public LeagueTeam(int logo, String name){
+    public League(int logo, String name){
         this.imageDrawable = logo;
         this.leagueName = name;
     }

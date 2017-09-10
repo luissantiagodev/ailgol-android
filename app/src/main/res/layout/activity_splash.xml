@@ -15,8 +15,9 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="135dp"
+            android:layout_height="135dp"
+            android:layout_marginBottom="20dp"
             android:src="@drawable/splash_background"
             />
 
@@ -24,6 +25,7 @@
             android:id="@+id/progress_bar"
             android:layout_width="90dp"
             android:indeterminate="false"
+            android:layout_marginTop="20dp"
             android:indeterminateTintMode="src_atop"
             android:indeterminateTint="@color/progress_color"
             android:layout_height="60dp"
