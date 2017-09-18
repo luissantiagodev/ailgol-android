@@ -7,7 +7,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="60dp"
         android:paddingBottom="20dp"
         android:layout_height="match_parent">
 
@@ -37,14 +36,11 @@
                 android:text="There is no internet connection :("
                 />
         </LinearLayout>
-
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10dp"
             android:id="@+id/recycle_view_news"
             android:layout_width="match_parent"
-            android:minHeight="2dp"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-
-
 </FrameLayout>

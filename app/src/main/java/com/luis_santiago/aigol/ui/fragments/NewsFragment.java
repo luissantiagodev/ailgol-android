@@ -18,6 +18,7 @@ import java.util.*;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.SoccerApi.data.Singletons.AigolClientNews;
 import com.luis_santiago.aigol.SoccerApi.result.NewsFinalResult;
@@ -70,6 +71,8 @@ public class NewsFragment extends Fragment {
 
         mNewsAdapter = new NewsAdapter (mTableTeamArrayList);
 
+        //Use this now
+        mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         mRecyclerView.setAdapter(mNewsAdapter);
 
         return view;

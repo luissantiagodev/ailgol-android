@@ -22,9 +22,11 @@ import java.util.ArrayList;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -88,6 +90,7 @@ public class TablesFragment extends Fragment {
         mTableTeamArrayList = new ArrayList<>();
         //Setting our adapter
         mTableAdapter = new TableAdapter(mTableTeamArrayList);
+        mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         mRecyclerView.setAdapter(mTableAdapter);
         // Creating an instance of the database
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();

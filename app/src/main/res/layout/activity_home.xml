@@ -14,14 +14,13 @@
         android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <include layout="@layout/app_bar"/>
+        <!--<include layout="@layout/app_bar"/>-->
 
         <FrameLayout
             android:id="@+id/container_activity"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </FrameLayout>
-        <include layout="@layout/bottom_bar_layout"/>
     </RelativeLayout>
 
 

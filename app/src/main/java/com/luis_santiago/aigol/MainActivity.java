@@ -21,16 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     // This is to set up our recyclewview into a grid
     private GridLayoutManager mGridLayoutManager;
-    private int number;
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if(grantResults[0] == PackageManager.PERMISSION_GRANTED){
-            Log.v("Main activity","Permission: "+permissions[0]+ "was "+grantResults[0]);
-            Toast.makeText(this, "I GOT PERMISSION", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,15 +50,5 @@ public class MainActivity extends AppCompatActivity {
         LeagueAdapter leagueAdapter = new LeagueAdapter(finalLeague);
         // I set up the adapter to run everything
         recyclerView.setAdapter(leagueAdapter);
-
-        // Requesting the permission
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) ==
-                    PackageManager.PERMISSION_GRANTED) {
-               // Do nothing for now
-            } else {
-                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, number);
-            }
-        }
     }
 }

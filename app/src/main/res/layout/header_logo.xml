@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/logo_white"
+    android:layout_width="200dp"
+          android:textColor="@android:color/white"
+          android:textSize="28sp"
+          android:gravity="center_horizontal"
+          android:layout_height="@dimen/materialviewpager_logoHeight"
+          android:text="Liga MX"/>

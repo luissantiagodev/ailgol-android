@@ -7,6 +7,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.CardView;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.github.florent37.materialviewpager.header.MaterialViewPagerHeaderDecorator;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -29,6 +31,7 @@ import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.ui.HomeActivity;
 import com.luis_santiago.aigol.utils.tools.adapters.ScoreAdapters;
 import com.luis_santiago.aigol.utils.tools.data.news.score.ScoreTeam;
+import com.luis_santiago.aigol.utils.tools.data.news.score.State;
 import com.luis_santiago.aigol.utils.tools.utils.Utils;
 
 import rx.Observer;
@@ -54,14 +57,12 @@ public class ScoresFragment extends Fragment {
     // Setting the adapter
     private ScoreAdapters mScoreAdapters;
     private LinearLayout mLinearLayout;
-    // This String is for knowing the legue to request
-    private DatabaseReference mDatabase;
+    private String TAG = ScoresFragment.class.getSimpleName();
 
 
     public ScoresFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,32 +71,57 @@ public class ScoresFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_scores, container, false);
         init(view);
         mTableTeamArrayList = new ArrayList<>();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mLayoutManager = new LinearLayoutManager(view.getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
-        DatabaseReference scores = mDatabase.child("Scores").child(HomeActivity.leagueName).child("matches");
+        Log.e(TAG, "Estoy en la liga putos" + HomeActivity.leagueName);
+        DatabaseReference scores = mDatabase.child("Scores").child(HomeActivity.leagueName);
         scores.keepSynced(true);
         scores.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                ArrayList<ScoreTeam> localList = new ArrayList<>();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
-                    Log.e(TAG, "THE DATA IS "+ snapshot.getValue());
-                    String roundSlug = (String) snapshot.child("round_slug").getValue();
-                    String finalScore = (String) snapshot.child("final_score").getValue();
-                    String teamAway = (String) snapshot.child("team_away").getValue();
-                    String teamAwayLogo = (String)snapshot.child("team_away_logo").getValue();
+                    Log.e(TAG, "THE DATA OF SNAPSHOT "+ snapshot.getValue());
+                    String key= snapshot.getKey();
+                    String dates = (String) snapshot.child("date").getValue();
+                    String roundSlug = (String) snapshot.child("slugRound").getValue();
+                    String finalScore = (String) snapshot.child("finalScore").getValue();
+                    String teamAway = (String) snapshot.child("teamAway").getValue();
+                    String teamAwayLogo = (String)snapshot.child("teamAwayLogo").getValue();
                     String teamHome = (String)snapshot.child("team_home").getValue();
                     String team_home_logo = (String) snapshot.child("team_home_logo").getValue();
+
+                    State state;
+                    try {
+                        state = new State(
+                                (boolean) snapshot.child("state").child("hasStarted").getValue(),
+                                (boolean) snapshot.child("state").child("done").getValue()
+                        );
+                        Log.e(TAG, "I GOT THE RECENT DATA");
+                    }
+                    catch (NullPointerException e){
+                        //If i dont recive any data, it's going to be false by default
+                        Log.e(TAG, "I got an error uploading ");
+                        state = new State(false, false);
+                    }
+
                     ScoreTeam scoreTeam = new ScoreTeam(
+                            dates,
+                            state,
+                            key,
                             roundSlug,
                             finalScore,
                             teamAway,
                             teamAwayLogo,
                             teamHome,
                             team_home_logo);
-                    mTableTeamArrayList.add(scoreTeam);
+                    localList.add(scoreTeam);
                 }
-                mScoreAdapters = new ScoreAdapters(mTableTeamArrayList);
+                mTableTeamArrayList.clear();
+                mTableTeamArrayList = localList;
+                mScoreAdapters = new ScoreAdapters(mTableTeamArrayList, getContext(),HomeActivity.leagueName);
+                mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
                 mRecyclerView.setAdapter(mScoreAdapters);
                 mLinearLayout.setVisibility(View.GONE);
             }

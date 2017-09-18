@@ -1,128 +1,124 @@
 package com.luis_santiago.aigol.ui;
 
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebViewFragment;
 
-import com.ittianyu.bottomnavigationviewex.BottomNavigationViewEx;
+import com.github.florent37.materialviewpager.MaterialViewPager;
+import com.github.florent37.materialviewpager.header.HeaderDesign;
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.ui.fragments.NewsFragment;
 import com.luis_santiago.aigol.ui.fragments.ScoresFragment;
 import com.luis_santiago.aigol.ui.fragments.TablesFragment;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 
-public class HomeActivity extends AppCompatActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
+public class HomeActivity extends DrawerActivity {
 
-    //Bottom Nav view
-    BottomNavigationViewEx mBottomNavigationViewEx;
+    @BindView(R.id.materialViewPager)
+    MaterialViewPager mViewPager;
+    private Drawable foto1;
+    private Drawable foto2;
+    private Drawable foto3;
+
     // This Bundle is for receiving data from the main Activity
     Bundle mBundle;
     public static String leagueName = "";
-    int checkNumber=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
-
-
+        setContentView(R.layout.activity_main_test);
+        setTitle("");
+        ButterKnife.bind(this);
         // Setting up the mBundle object
         mBundle = getIntent().getExtras();
-
         leagueName = mBundle.getString(Keys.TEAM_NAME);
-
         Log.e("Main activity", "IM at the "+leagueName);
-        mBottomNavigationViewEx = (BottomNavigationViewEx) findViewById(R.id.bottom_bar);
-        // Enabling text and icon view
-        setUpNavegation();
 
-        mBottomNavigationViewEx.setOnNavigationItemSelectedListener(onNavigationItemSelectedListener);
-        /*
-        * If the user hasn't clicked a icon, then we will set the default fragment
-        * */
-        ScoresFragment scoresFragment = new ScoresFragment();
-        settingFragment(scoresFragment);
-        setUpGreenIcon(checkNumber);
-    }
+        final Toolbar toolbar = mViewPager.getToolbar();
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
 
+        if(leagueName.equals("LigaMx")){
+            foto1 = getResources().getDrawable(R.drawable.chivas);
+            foto2 = getResources().getDrawable(R.drawable.pumas);
+            foto3 = getResources().getDrawable(R.drawable.america);
+        }
 
-    private void setUpNavegation(){
-        mBottomNavigationViewEx.enableAnimation(false);
-        mBottomNavigationViewEx.enableItemShiftingMode(false);
-        mBottomNavigationViewEx.enableShiftingMode(false);
-        mBottomNavigationViewEx.setTextVisibility(true);
+        mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
 
-    }
-
-
-    private void setUpGreenIcon(int a){
-        mBottomNavigationViewEx.setIconTintList(a, getResources()
-                .getColorStateList(R.color.progress_color));
-    }
-
-    private void setUpGrayIcon(int a){
-        mBottomNavigationViewEx.setIconTintList(a, getResources()
-                .getColorStateList(R.color.colorPrimaryDark));
-    }
-
-    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemSelectedListener =
-            new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-            final Menu menu = mBottomNavigationViewEx.getMenu();
-            checkNumber = mBottomNavigationViewEx.getMenuItemPosition(item);
-
-
-            switch (item.getItemId()){
-
-                case R.id.ic_tables:{
-                    settingFragment(new TablesFragment());
-                    setUpGreenIcon(0);
-                    setUpGrayIcon(1);
-                    setUpGrayIcon(2);
-                    break;
+            @Override
+            public Fragment getItem(int position) {
+                switch (position % 4) {
+                    case 0:
+                       return new TablesFragment();
+                    case 1:
+                        return new ScoresFragment();
+                    case 2:
+                       return new NewsFragment();
                 }
-
-                case R.id.ic_scores:{
-                    settingFragment(new ScoresFragment());
-                    setUpGreenIcon(1);
-                    setUpGrayIcon(0);
-                    setUpGrayIcon(2);
-                    break;
-                }
-
-                case R.id.ic_news:{
-                    settingFragment(new NewsFragment());
-                    setUpGreenIcon(2);
-                    setUpGrayIcon(0);
-                    setUpGrayIcon(1);
-                    break;
-                }
-
+                return null;
             }
 
-            MenuItem menuItem = menu.getItem(checkNumber);
-            menuItem.setChecked(true);
-            return false;
-        }
-    };
+            @Override
+            public int getCount() {
+                return 3;
+            }
+
+            @Override
+            public CharSequence getPageTitle(int position) {
+                switch (position % 4) {
+                    case 0:
+                        return "Standings";
+                    case 1:
+                        return "Matches";
+                    case 2:
+                        return "News";
+                }
+                return "";
+            }
+        });
+
+        mViewPager.setMaterialViewPagerListener(new MaterialViewPager.Listener() {
+            @Override
+            public HeaderDesign getHeaderDesign(int page) {
+                switch (page) {
+                    case 0:
+                        return HeaderDesign.fromColorAndDrawable(
+                                getResources().getColor(R.color.progress_color),
+                                foto1);
+                    case 1:
+                        return HeaderDesign.fromColorAndDrawable(
+                                getResources().getColor(R.color.progress_color),
+                                foto2);
+                    case 2:
+                        return HeaderDesign.fromColorAndDrawable(
+                                getResources().getColor(R.color.progress_color),
+                                foto3);
+                }
 
 
-    private void settingFragment(Fragment fragment){
-        getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.container_activity, fragment)
-                .setTransition(FragmentTransaction.TRANSIT_EXIT_MASK)
-                .addToBackStack(null)
-                .commit();
+                return null;
+            }
+        });
+
+        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
+        mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+
     }
 
     @Override

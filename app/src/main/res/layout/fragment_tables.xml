@@ -1,24 +1,18 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
-             android:layout_marginTop="50dp"
              android:layout_height="match_parent"
              xmlns:app="http://schemas.android.com/apk/res-auto"
              tools:context="com.luis_santiago.aigol.ui.fragments.TablesFragment">
 
         <include layout="@layout/loading_progress"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
-
-            <include layout="@layout/information_standing"/>
             <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="10dp"
                 android:id="@+id/recycle_view_table_fragment"
                 android:layout_width="match_parent"
                 android:minHeight="2dp"
                 android:layout_height="match_parent">
             </android.support.v7.widget.RecyclerView>
-        </LinearLayout>
+
 </FrameLayout>

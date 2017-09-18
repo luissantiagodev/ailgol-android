@@ -4,13 +4,10 @@
              android:layout_height="match_parent"
              tools:context="com.luis_santiago.aigol.ui.fragments.ScoresFragment">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="60dp"
         android:layout_height="match_parent">
-
 
         <LinearLayout
             android:id="@+id/progress_bar_layout_score"
@@ -40,11 +37,11 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
+            android:layout_marginTop="10dp"
             android:id="@+id/recycle_view_scores"
             android:layout_width="match_parent"
             android:minHeight="2dp"
             android:layout_height="match_parent">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
-
 </FrameLayout>
