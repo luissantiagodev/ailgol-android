@@ -7,14 +7,11 @@
     android:layout_height="match_parent"
     tools:context="com.luis_santiago.aigol.start.SplashActivity">
 
-
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="wrap_content">
-
+        android:layout_height="match_parent">
         <include layout="@layout/app_bar"/>
-
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycle_view"
             xmlns:tools="http://schemas.android.com/tools"

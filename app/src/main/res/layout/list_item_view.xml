@@ -3,7 +3,7 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:gravity="center"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
 
     <LinearLayout
@@ -11,15 +11,12 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:layout_height="126dp">
-
-
         <ImageView
             android:id="@+id/image_logo_league"
             android:transitionName="@string/transition"
             android:layout_width="100dp"
             android:src="@drawable/laliga_v_600x600"
             android:layout_height="100dp"/>
-
     </LinearLayout>
     
 </LinearLayout>

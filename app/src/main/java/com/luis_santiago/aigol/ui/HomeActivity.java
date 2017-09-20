@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebViewFragment;
+import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
@@ -32,6 +33,7 @@ public class HomeActivity extends DrawerActivity {
     private Drawable foto1;
     private Drawable foto2;
     private Drawable foto3;
+    private TextView logoWhite;
 
     // This Bundle is for receiving data from the main Activity
     Bundle mBundle;
@@ -43,6 +45,8 @@ public class HomeActivity extends DrawerActivity {
         setContentView(R.layout.activity_main_test);
         setTitle("");
         ButterKnife.bind(this);
+        logoWhite = (TextView) findViewById(R.id.logo_white);
+
         // Setting up the mBundle object
         mBundle = getIntent().getExtras();
         leagueName = mBundle.getString(Keys.TEAM_NAME);
@@ -57,6 +61,19 @@ public class HomeActivity extends DrawerActivity {
             foto1 = getResources().getDrawable(R.drawable.chivas);
             foto2 = getResources().getDrawable(R.drawable.pumas);
             foto3 = getResources().getDrawable(R.drawable.america);
+            logoWhite.setText("LigaMx");
+        }
+        else if(leagueName.equals("LigaEspañola")){
+            foto1 = getResources().getDrawable(R.drawable.madrid);
+            foto2 = getResources().getDrawable(R.drawable.messi);
+            foto3 = getResources().getDrawable(R.drawable.ronaldo);
+            logoWhite.setText("La Liga");
+        }
+        else if(leagueName.equals("Ligue1")){
+            foto1 = getResources().getDrawable(R.drawable.monaco);
+            foto2 = getResources().getDrawable(R.drawable.psg);
+            foto3 = getResources().getDrawable(R.drawable.lyon);
+            logoWhite.setText("La Liga");
         }
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
@@ -110,19 +127,24 @@ public class HomeActivity extends DrawerActivity {
                                 getResources().getColor(R.color.progress_color),
                                 foto3);
                 }
-
-
                 return null;
             }
         });
 
-        mViewPager.getViewPager().setOffscreenPageLimit(mViewPager.getViewPager().getAdapter().getCount());
-        mViewPager.getPagerTitleStrip().setViewPager(mViewPager.getViewPager());
+        mViewPager
+                .getViewPager()
+                .setOffscreenPageLimit(mViewPager
+                .getViewPager()
+                .getAdapter()
+                .getCount());
+        mViewPager
+                .getPagerTitleStrip()
+                .setViewPager(mViewPager.getViewPager());
 
     }
-
     @Override
     public void onBackPressed() {
         finish();
     }
+
 }
