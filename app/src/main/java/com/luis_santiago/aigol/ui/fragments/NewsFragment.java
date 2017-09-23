@@ -69,7 +69,7 @@ public class NewsFragment extends Fragment {
 
         mTableTeamArrayList = new ArrayList<>();
 
-        mNewsAdapter = new NewsAdapter (mTableTeamArrayList);
+        mNewsAdapter = new NewsAdapter (mTableTeamArrayList, getContext());
 
         //Use this now
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());

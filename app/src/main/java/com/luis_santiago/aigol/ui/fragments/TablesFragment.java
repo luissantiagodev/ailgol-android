@@ -13,6 +13,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import java.util.*;
@@ -158,6 +159,5 @@ public class TablesFragment extends Fragment {
         mRecyclerView = (RecyclerView) view.findViewById(R.id.recycle_view_table_fragment);
         mLinearLayout = (LinearLayout) view.findViewById(R.id.progress_bar_layout);
         isThereInternetConnection = (ProgressBar) view.findViewById(R.id.progress_bar_interner);
-        textAppBar = (TextView) getActivity().findViewById(R.id.text_bar);
     }
 }

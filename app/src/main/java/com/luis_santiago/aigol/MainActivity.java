@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -21,15 +22,16 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     // This is to set up our recyclewview into a grid
     private GridLayoutManager mGridLayoutManager;
+    private Toolbar mToolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         recyclerView = (RecyclerView) findViewById(R.id.recycle_view);
-
+        setUpToolbar();
+        setSupportActionBar(mToolbar);
+        mToolbar.setTitle("Choose your league");
         // I pass the context and the number of columns in the grid view
         mGridLayoutManager = new GridLayoutManager(this, 2);
         // I assing my LayoutManager for a grid view
@@ -50,5 +52,9 @@ public class MainActivity extends AppCompatActivity {
         LeagueAdapter leagueAdapter = new LeagueAdapter(finalLeague);
         // I set up the adapter to run everything
         recyclerView.setAdapter(leagueAdapter);
+    }
+
+    private void setUpToolbar(){
+        mToolbar = (Toolbar) findViewById(R.id.text_bar_toolbar);
     }
 }

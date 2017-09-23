@@ -12,19 +12,15 @@
         android:layout_alignParentTop="true"
         android:background="@color/colorPrimary"
         android:layout_height="?attr/actionBarSize">
-
-        <TextView
-            android:id="@+id/text_bar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/text_bar_toolbar"
+            android:elevation="4dp"
+            android:theme="@style/toolbar_style"
+            android:title="Choose your league"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/selecciona_tu_liga"
-            android:layout_marginTop="15dp"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:gravity="center"
-            style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title"
-            android:layout_gravity ="center"
-            />
-
+            android:fitsSystemWindows="true"
+            android:layout_height="match_parent">
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 </RelativeLayout>
