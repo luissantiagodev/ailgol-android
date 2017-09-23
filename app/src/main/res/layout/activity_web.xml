@@ -14,7 +14,8 @@
         <include layout="@layout/app_bar"/>
         <ProgressBar
             android:layout_width="match_parent"
-            app:theme=""
+            style="?android:attr/progressBarStyleHorizontal"
+            android:indeterminateTint="@color/progress_color"
             android:layout_height="8dp"/>
         <WebView
             android:id="@+id/web_view"
