@@ -55,7 +55,7 @@ dependencies {
     compile 'com.squareup.okhttp:okhttp:2.5.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.1.1'
 }
 
 apply plugin: 'com.google.gms.google-services'

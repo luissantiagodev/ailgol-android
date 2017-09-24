@@ -23,6 +23,7 @@ import com.bumptech.glide.Glide;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.luis_santiago.aigol.BuildConfig;
 import com.luis_santiago.aigol.R;
+import com.luis_santiago.aigol.utils.tools.GlideApp;
 import com.luis_santiago.aigol.utils.tools.data.news.score.TableTeam;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.MemoryPolicy;
@@ -34,6 +35,7 @@ import com.squareup.picasso.Target;
 import okhttp3.Cache;
 import okhttp3.OkHttpClient;
 
+import static android.R.attr.path;
 import static java.lang.System.load;
 
 /**
@@ -42,7 +44,6 @@ import static java.lang.System.load;
 
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapterHolder>{
 
-    private static final String TAG = TableAdapter.class.getSimpleName();
     private List <TableTeam> mTableTeams = new ArrayList<>();
     private Context mContext;
 
@@ -69,6 +70,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
         return new TableAdapterHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(TableAdapterHolder holder, int position) {
         final TableTeam tableTeam = mTableTeams.get(position);
@@ -77,32 +79,11 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
         final String url = tableTeam.getLogo();
 
 
-        /*OkHttpClient client = new OkHttpClient.Builder()
-                .cache(new Cache(mContext.getCacheDir(), Integer.MAX_VALUE))
-                .build();
-        Picasso build = new Picasso.Builder(mContext)
-                .downloader(new OkHttp3Downloader(client))
-                .build();
-        Picasso.setSingletonInstance(build);*/
-        Picasso mBuilder = new Picasso.Builder(mContext)
-                .loggingEnabled(BuildConfig.DEBUG)
-                .indicatorsEnabled(BuildConfig.DEBUG)
-                .downloader(new OkHttpDownloader(mContext, Integer.MAX_VALUE))
-                .build();
-
-
-       /* Picasso.with(holder.imageView.getContext())
-                    .load(url)
-                    .into(holder.imageView, new Callback.EmptyCallback(){
-                        @Override
-                        public void onSuccess() {
-                           // do nothing for now
-                        }
-                    });*/
-
-
-        Glide.with(mContext)
+        GlideApp
+                .with(mContext)
                 .load(url)
+                .centerCrop()
+                .override(400,400)
                 .into(holder.imageView);
 
         holder.teamName.setText(tableTeam.getName());
@@ -129,6 +110,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
          TextView goalDiference;
          TextView points;
          View layout;
+
          public TableAdapterHolder(View v) {
              super(v);
              layout = v;
