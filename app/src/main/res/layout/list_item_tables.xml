@@ -2,23 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:background="@color/colorPrimaryDark"
-              android:paddingTop="5dp"
               android:layout_marginBottom="10dp"
               android:layout_width="match_parent"
               android:layout_height="wrap_content">
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_height="54dp">
-
+        android:layout_height="60dp">
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_marginTop="3dp"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/position"
@@ -30,12 +29,11 @@
                     android:layout_height="match_parent"/>
                 <ImageView
                     android:id="@+id/logo_team"
-                    android:layout_width="0dp"
-                    android:layout_weight=".1"
+                    android:layout_width="35dp"
                     android:src="@drawable/laliga_v_600x600"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="1dp"
                     android:contentDescription="Logos League"/>
                 <TextView
                     android:id="@+id/team"

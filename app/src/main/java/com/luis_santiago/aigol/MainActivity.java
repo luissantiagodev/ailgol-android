@@ -2,15 +2,15 @@ package com.luis_santiago.aigol;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.luis_santiago.aigol.utils.tools.adapters.LeagueAdapter;
 import com.luis_santiago.aigol.utils.tools.data.news.score.League;
@@ -19,9 +19,11 @@ import java.util.*;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
     private RecyclerView recyclerView;
     // This is to set up our recyclewview into a grid
     private GridLayoutManager mGridLayoutManager;
+    private final int MY_PERMISION_REQUEST = 1;
     private Toolbar mToolbar;
 
     @Override
@@ -52,9 +54,31 @@ public class MainActivity extends AppCompatActivity {
         LeagueAdapter leagueAdapter = new LeagueAdapter(finalLeague);
         // I set up the adapter to run everything
         recyclerView.setAdapter(leagueAdapter);
+        checkForPermission();
     }
 
     private void setUpToolbar(){
         mToolbar = (Toolbar) findViewById(R.id.text_bar_toolbar);
+    }
+
+    private void checkForPermission(){
+        if(ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
+            Log.e(TAG,"We hace permission");
+        }else{
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, MY_PERMISION_REQUEST);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case MY_PERMISION_REQUEST: {
+                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                    Log.e(TAG, "We ask now we got permission");
+                else{
+                    Log.e(TAG, "I never got permision");
+                }
+            }
+        }
     }
 }

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.luis_santiago.aigol.R;
@@ -16,6 +17,7 @@ public class WebActivity extends AppCompatActivity {
 
     private WebView webView;
     private Toolbar textView;
+    private ProgressBar mProgressBar;
     private final String TAG = WebActivity.class.getSimpleName();
 
     @Override
@@ -34,11 +36,13 @@ public class WebActivity extends AppCompatActivity {
                 return false;
             }
         });
+        //After loading our bundle object we load our url
         webView.loadUrl(url);
     }
 
     private void init(){
         webView = (WebView) findViewById(R.id.web_view);
         textView = (Toolbar) findViewById(R.id.text_bar_toolbar);
+        mProgressBar = (ProgressBar) findViewById(R.id.progess_web_bar);
     }
 }

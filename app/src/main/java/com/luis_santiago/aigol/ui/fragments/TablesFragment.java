@@ -90,7 +90,7 @@ public class TablesFragment extends Fragment {
         // Creating our list
         mTableTeamArrayList = new ArrayList<>();
         //Setting our adapter
-        mTableAdapter = new TableAdapter(mTableTeamArrayList);
+        mTableAdapter = new TableAdapter(mTableTeamArrayList, getContext());
         mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
         mRecyclerView.setAdapter(mTableAdapter);
         // Creating an instance of the database

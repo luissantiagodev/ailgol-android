@@ -1,5 +1,6 @@
 package com.luis_santiago.aigol.utils.tools.adapters;
 
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
@@ -15,13 +16,25 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.*;
 
+import com.bumptech.glide.Glide;
+import com.jakewharton.picasso.OkHttp3Downloader;
+import com.luis_santiago.aigol.BuildConfig;
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.utils.tools.data.news.score.TableTeam;
 import com.squareup.picasso.Callback;
+import com.squareup.picasso.MemoryPolicy;
+import com.squareup.picasso.NetworkPolicy;
+import com.squareup.picasso.OkHttpDownloader;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
+
+import okhttp3.Cache;
+import okhttp3.OkHttpClient;
+
+import static java.lang.System.load;
 
 /**
  * Created by legendarywicho on 7/31/17.
@@ -29,11 +42,14 @@ import com.squareup.picasso.Target;
 
 public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapterHolder>{
 
+    private static final String TAG = TableAdapter.class.getSimpleName();
     private List <TableTeam> mTableTeams = new ArrayList<>();
+    private Context mContext;
 
 
-    public TableAdapter(List <TableTeam> team){
+    public TableAdapter(List <TableTeam> team, Context c){
         this.mTableTeams = team;
+        this.mContext = c;
     }
 
     public void setTableTeams(List <TableTeam> team){
@@ -55,21 +71,39 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
 
     @Override
     public void onBindViewHolder(TableAdapterHolder holder, int position) {
-        TableTeam tableTeam = mTableTeams.get(position);
+        final TableTeam tableTeam = mTableTeams.get(position);
 
         holder.position.setText(tableTeam.getPosition());
-        String url = tableTeam.getLogo();
-        Picasso.with(holder.imageView.getContext())
+        final String url = tableTeam.getLogo();
+
+
+        /*OkHttpClient client = new OkHttpClient.Builder()
+                .cache(new Cache(mContext.getCacheDir(), Integer.MAX_VALUE))
+                .build();
+        Picasso build = new Picasso.Builder(mContext)
+                .downloader(new OkHttp3Downloader(client))
+                .build();
+        Picasso.setSingletonInstance(build);*/
+        Picasso mBuilder = new Picasso.Builder(mContext)
+                .loggingEnabled(BuildConfig.DEBUG)
+                .indicatorsEnabled(BuildConfig.DEBUG)
+                .downloader(new OkHttpDownloader(mContext, Integer.MAX_VALUE))
+                .build();
+
+
+       /* Picasso.with(holder.imageView.getContext())
                     .load(url)
                     .into(holder.imageView, new Callback.EmptyCallback(){
                         @Override
                         public void onSuccess() {
                            // do nothing for now
                         }
-                    });
-            Picasso.with(holder.imageView.getContext())
-                    .load(url)
-                    .into(target);
+                    });*/
+
+
+        Glide.with(mContext)
+                .load(url)
+                .into(holder.imageView);
 
         holder.teamName.setText(tableTeam.getName());
         holder.matchesPlayed.setText(tableTeam.getMp());
@@ -108,33 +142,4 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
              points = (TextView) v.findViewById(R.id.points);
          }
      }
-
-     private Target target = new Target() {
-         @Override
-         public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
-             new Thread(new Runnable() {
-                 @Override
-                 public void run() {
-                     File file = new File(Environment.getExternalStorageDirectory().getPath() + "/actress_wallpaper.jpg");
-                     try {
-                         file.createNewFile();
-                         FileOutputStream outputStream = new FileOutputStream(file);
-                         bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream);
-                     } catch (Exception e) {
-                         e.printStackTrace();
-                     }
-                 }
-             }).start();
-         }
-
-         @Override
-         public void onBitmapFailed(Drawable errorDrawable) {
-
-         }
-
-         @Override
-         public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-         }
-     };
 }
