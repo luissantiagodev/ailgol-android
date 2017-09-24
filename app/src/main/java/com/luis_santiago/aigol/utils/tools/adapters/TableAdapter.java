@@ -83,7 +83,7 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
                 .with(mContext)
                 .load(url)
                 .centerCrop()
-                .override(400,400)
+                .override(200,200)
                 .into(holder.imageView);
 
         holder.teamName.setText(tableTeam.getName());
