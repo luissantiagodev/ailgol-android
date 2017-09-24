@@ -15,6 +15,7 @@
             android:id="@+id/text_bar_toolbar"
             android:elevation="4dp"
             android:theme="@style/toolbar_style"
+            app:theme="@style/ThemeOverlay.AppCompat"
             android:title="Choose your league"
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             android:layout_width="match_parent"

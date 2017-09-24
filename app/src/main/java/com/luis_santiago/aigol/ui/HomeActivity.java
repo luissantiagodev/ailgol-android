@@ -17,6 +17,9 @@ import android.widget.TextView;
 
 import com.github.florent37.materialviewpager.MaterialViewPager;
 import com.github.florent37.materialviewpager.header.HeaderDesign;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.ui.fragments.NewsFragment;
 import com.luis_santiago.aigol.ui.fragments.ScoresFragment;
@@ -34,6 +37,8 @@ public class HomeActivity extends DrawerActivity {
     private Drawable foto2;
     private Drawable foto3;
     private TextView logoWhite;
+    private InterstitialAd interstitialAd;
+    private AdView mAdview;
 
     // This Bundle is for receiving data from the main Activity
     Bundle mBundle;
@@ -47,6 +52,14 @@ public class HomeActivity extends DrawerActivity {
         ButterKnife.bind(this);
         logoWhite = (TextView) findViewById(R.id.logo_white);
 
+        mAdview = (AdView) findViewById(R.id.banner);
+        //starting to show the banner add
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-5461480863776866/3346084113");
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice("FA73653EA402CC30D55A5140976DA6C4")
+                .build();
+        mAdview.loadAd(adRequest);
         // Setting up the mBundle object
         mBundle = getIntent().getExtras();
         leagueName = mBundle.getString(Keys.TEAM_NAME);
@@ -147,4 +160,19 @@ public class HomeActivity extends DrawerActivity {
         finish();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mAdview != null) {
+            mAdview.resume();
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mAdview!= null) {
+            mAdview.destroy();
+        }
+        super.onDestroy();
+    }
 }

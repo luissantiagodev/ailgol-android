@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.luis_santiago.aigol.R;
 import com.luis_santiago.aigol.SoccerApi.result.NewsFinalResult;
 import com.luis_santiago.aigol.ui.WebActivity;
+import com.luis_santiago.aigol.utils.tools.GlideApp;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
 import com.luis_santiago.aigol.utils.tools.data.news.score.Article;
 import com.squareup.picasso.Picasso;
@@ -63,13 +64,15 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder>{
         final Article article = mNewsFinalResultList.get(position);
         final Bundle bundle = new Bundle();
         String url = article.getUrlToImage();
-            Picasso.with(holder.foto.getContext()).load(url).into(holder.foto);
+        GlideApp
+                .with(holder.foto.getContext())
+                .load(url)
+                .into(holder.foto);
         holder.title.setText(article.getTitle());
         holder.description.setText(article.getDescription());
         holder.generalCardview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO CREATE INTENT TO OPEN PAGE
                 Intent intent = new Intent(holder.generalCardview.getContext(), WebActivity.class);
                 bundle.putString(Keys.URL_BASE_NEWS, article.getUrl());
                 intent.putExtras(bundle);

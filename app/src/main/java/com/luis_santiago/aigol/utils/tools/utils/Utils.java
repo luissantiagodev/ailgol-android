@@ -39,7 +39,7 @@ public class Utils {
             mBuilder = new AlertDialog.Builder(context);
         }
 
-        mBuilder.setTitle("¡Chicharito la fallo!")
+        mBuilder.setTitle("¡Chicharito has missed it!")
                 .setMessage("There is no internet connection")
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
@@ -55,53 +55,6 @@ public class Utils {
         return networkInfo!=null && networkInfo.isConnected();
     }
 
-    public static void DownloadImage(ImageView imageView, String url){
-        Picasso.with(imageView.getContext())
-                .load(url)
-                .into(imageView, new Callback.EmptyCallback(){
-                    @Override
-                    public void onSuccess() {
-                        // do nothing for now
-                    }
-                });
-        Picasso.with(imageView.getContext())
-                .load(url)
-                .into(target);
-    }
-
-    private static Target target = new Target() {
-        @Override
-        public void onBitmapLoaded(final Bitmap bitmap, Picasso.LoadedFrom from) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    int numberToChangeNameOfFile= 0;
-                    File file = new File(Environment.getExternalStorageDirectory().getPath() +
-                            "/team_logo.jpg"+String.valueOf(numberToChangeNameOfFile));
-                    try {
-                        file.createNewFile();
-                        FileOutputStream outputStream = new FileOutputStream(file);
-                        bitmap.compress(Bitmap.CompressFormat.JPEG, 75, outputStream);
-                        //In order to save an image correctly we change the number to create a
-                        // diffent image file on local storage
-                        numberToChangeNameOfFile++;
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        }
-
-        @Override
-        public void onBitmapFailed(Drawable errorDrawable) {
-
-        }
-
-        @Override
-        public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-        }
-    };
 
     public static TableTeam generateTableTeam(DataSnapshot snapshot){
         Long position = (Long) snapshot.child("position").getValue();

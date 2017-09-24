@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+                                        xmlns:app="http://schemas.android.com/apk/res-auto"
+                                        xmlns:ads="http://schemas.android.com/apk/res-auto"
+                                        android:id="@+id/drawer_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent">
 
     <com.github.florent37.materialviewpager.MaterialViewPager
         android:id="@+id/materialViewPager"
@@ -23,7 +24,24 @@
         app:viewpager_parallaxHeaderFactor="1.2"
         app:viewpager_headerAdditionalHeight="10dp"
         app:viewpager_displayToolbarWhenSwipe="true"
+        android:paddingBottom="30dp"
         app:viewpager_transparentToolbar="false"
         app:viewpager_animatedHeaderImage="false">
     </com.github.florent37.materialviewpager.MaterialViewPager>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/banner"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_centerHorizontal="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-5461480863776866/9137229161"
+            >
+        </com.google.android.gms.ads.AdView>
+    </RelativeLayout>
 </android.support.v4.widget.DrawerLayout>

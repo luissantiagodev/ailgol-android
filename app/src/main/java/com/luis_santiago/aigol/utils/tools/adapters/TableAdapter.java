@@ -82,7 +82,6 @@ public class TableAdapter extends RecyclerView.Adapter<TableAdapter.TableAdapter
         GlideApp
                 .with(mContext)
                 .load(url)
-                .centerCrop()
                 .override(200,200)
                 .into(holder.imageView);
 

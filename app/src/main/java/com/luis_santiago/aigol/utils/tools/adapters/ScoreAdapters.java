@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.luis_santiago.aigol.R;
+import com.luis_santiago.aigol.utils.tools.GlideApp;
 import com.luis_santiago.aigol.utils.tools.data.news.score.ScoreTeam;
 import com.luis_santiago.aigol.utils.tools.data.news.score.State;
 import com.luis_santiago.aigol.utils.tools.utils.Utils;
@@ -77,8 +78,18 @@ public class ScoreAdapters extends RecyclerView.Adapter <ScoreAdapters.HoldViewe
         /*
          * This is for downloading and saving the image on a local file
          */
-        Utils.DownloadImage(holder.homeTeam, url_home);
-        Utils.DownloadImage(holder.awayTeam, url_away);
+
+        GlideApp
+                .with(mContext)
+                .load(url_home)
+                .override(200,200)
+                .into(holder.homeTeam);
+        GlideApp
+                .with(mContext)
+                .load(url_away)
+                .override(200,200)
+                .into(holder.awayTeam);
+
 
          /*We get the score in this format 1-1*/
         String finalScore = scoreTeam.getFinalScore();

@@ -40,7 +40,7 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder notificaionBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_launcher_app)
+                .setSmallIcon(R.drawable.laliga_v_600x600)
                 .setContentTitle(title)
                 .setAutoCancel(true)
                 .setContentText(body);
