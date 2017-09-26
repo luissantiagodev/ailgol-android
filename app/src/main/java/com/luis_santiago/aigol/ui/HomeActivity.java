@@ -1,5 +1,9 @@
 package com.luis_santiago.aigol.ui;
 
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -25,6 +29,9 @@ import com.luis_santiago.aigol.ui.fragments.NewsFragment;
 import com.luis_santiago.aigol.ui.fragments.ScoresFragment;
 import com.luis_santiago.aigol.ui.fragments.TablesFragment;
 import com.luis_santiago.aigol.utils.tools.Keys.Keys;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -70,45 +77,45 @@ public class HomeActivity extends DrawerActivity {
         }
 
         if(leagueName.equals("LigaMx")){
-            foto1 = getResources().getDrawable(R.drawable.chivas);
-            foto2 = getResources().getDrawable(R.drawable.pumas);
-            foto3 = getResources().getDrawable(R.drawable.america);
+            foto1 = new BitmapDrawable(getResources(),getBitmapFromAsset("chivas.png"));//getResources().getDrawable(R.drawable.chivas);
+            foto2 = new BitmapDrawable(getResources(),getBitmapFromAsset("pumas.png"));//getResources().getDrawable(R.drawable.pumas);
+            foto3 = new BitmapDrawable(getResources(),getBitmapFromAsset("america.png"));//getResources().getDrawable(R.drawable.america);
             logoWhite.setText("Liga Mx");
         }
         else if(leagueName.equals("LigaEspañola")){
-            foto1 = getResources().getDrawable(R.drawable.madrid);
-            foto2 = getResources().getDrawable(R.drawable.messi);
-            foto3 = getResources().getDrawable(R.drawable.ronaldo);
+            foto1 = new BitmapDrawable(getResources(),getBitmapFromAsset("madrid.png"));//getResources().getDrawable(R.drawable.madrid);
+            foto2 = new BitmapDrawable(getResources(),getBitmapFromAsset("messi.png"));//getResources().getDrawable(R.drawable.messi);
+            foto3 = new BitmapDrawable(getResources(),getBitmapFromAsset("ronaldo.png"));//getResources().getDrawable(R.drawable.ronaldo);
             logoWhite.setText("La Liga");
         }
         else if(leagueName.equals("Ligue1")){
-            foto1 = getResources().getDrawable(R.drawable.monaco);
-            foto2 = getResources().getDrawable(R.drawable.psg);
-            foto3 = getResources().getDrawable(R.drawable.lyon);
+            foto1 = new BitmapDrawable(getResources(),getBitmapFromAsset("monaco.png"));//getResources().getDrawable(R.drawable.monaco);
+            foto2 = new BitmapDrawable(getResources(),getBitmapFromAsset("psg.png"));//getResources().getDrawable(R.drawable.psg);
+            foto3 = new BitmapDrawable(getResources(),getBitmapFromAsset("lyon.png"));//getResources().getDrawable(R.drawable.lyon);
             logoWhite.setText("Ligue 1");
         }
         else if(leagueName.equals("bundesliga")){
-            foto1 = getResources().getDrawable(R.drawable.bayern);
-            foto2 = getResources().getDrawable(R.drawable.dortmund);
-            foto3 = getResources().getDrawable(R.drawable.bundesliga_third);
+            foto1 = new BitmapDrawable(getResources(),getBitmapFromAsset("bayern.png"));//getResources().getDrawable(R.drawable.bayern);
+            foto2 = new BitmapDrawable(getResources(),getBitmapFromAsset("dortmund.png"));//getResources().getDrawable(R.drawable.dortmund);
+            foto3 = new BitmapDrawable(getResources(),getBitmapFromAsset("bundesliga_third.png"));//getResources().getDrawable(R.drawable.bundesliga_third);
             logoWhite.setText("Bundesliga");
         }
         else if(leagueName.equals("serie-a")){
-            foto1 = getResources().getDrawable(R.drawable.seria_a_1);
-            foto2 = getResources().getDrawable(R.drawable.serie_a_2);
-            foto3 = getResources().getDrawable(R.drawable.serie_a_3);
+            foto1 =  new BitmapDrawable(getResources(),getBitmapFromAsset("seria_a_1.png"));//getResources().getDrawable(R.drawable.seria_a_1);
+            foto2 =  new BitmapDrawable(getResources(),getBitmapFromAsset("serie_a_2.png"));//getResources().getDrawable(R.drawable.serie_a_2);
+            foto3 =  new BitmapDrawable(getResources(),getBitmapFromAsset("serie_a_3.png"));//getResources().getDrawable(R.drawable.serie_a_3);
             logoWhite.setText("Serie A");
         }
         else if(leagueName.equals("Eredivisie")){
-            foto1 = getResources().getDrawable(R.drawable.holandesa_1);
-            foto2 = getResources().getDrawable(R.drawable.holandesa_2);
-            foto3 = getResources().getDrawable(R.drawable.holandesa_3);
+            foto1 =  new BitmapDrawable(getResources(),getBitmapFromAsset("holandesa_1.png"));//getResources().getDrawable(R.drawable.holandesa_1);
+            foto2 =  new BitmapDrawable(getResources(),getBitmapFromAsset("holandesa_2.png"));//getResources().getDrawable(R.drawable.holandesa_2);
+            foto3 =  new BitmapDrawable(getResources(),getBitmapFromAsset("holandesa_2.png"));//getResources().getDrawable(R.drawable.holandesa_3);
             logoWhite.setText("Eredivisie");
         }
         else if(leagueName.equals("premier-league")){
-            foto1 = getResources().getDrawable(R.drawable.premier_1);
-            foto2 = getResources().getDrawable(R.drawable.premier_2);
-            foto3 = getResources().getDrawable(R.drawable.premier_3);
+            foto1 =  new BitmapDrawable(getResources(),getBitmapFromAsset("premier_1.png"));//getResources().getDrawable(R.drawable.premier_1);
+            foto2 = new BitmapDrawable(getResources(),getBitmapFromAsset("premier_2.png"));//getResources().getDrawable(R.drawable.premier_2);
+            foto3 = new BitmapDrawable(getResources(),getBitmapFromAsset("premier_3.png"));//getResources().getDrawable(R.drawable.premier_3);
             logoWhite.setText("Premier League");
         }
 
@@ -197,5 +204,18 @@ public class HomeActivity extends DrawerActivity {
             mAdview.destroy();
         }
         super.onDestroy();
+    }
+
+    private Bitmap getBitmapFromAsset(String strName)
+    {
+        AssetManager assetManager = getAssets();
+        InputStream istr = null;
+        try {
+            istr = assetManager.open(strName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Bitmap bitmap = BitmapFactory.decodeStream(istr);
+        return bitmap;
     }
 }
