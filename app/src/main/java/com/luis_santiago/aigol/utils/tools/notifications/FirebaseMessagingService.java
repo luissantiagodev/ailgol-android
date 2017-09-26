@@ -47,8 +47,8 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder notificaionBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_stat_ic_launcher_app)
-                .setColor(getResources().getColor(R.color.colorPrimaryDark))
+                .setSmallIcon(R.drawable.testing)
+                .setColor(getResources().getColor(R.color.progress_color))
                 .setLargeIcon(icon)
                 .setVibrate(new long[] { 100, 250 })
                 .setDefaults(Notification.DEFAULT_SOUND).setAutoCancel(true)

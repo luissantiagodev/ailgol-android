@@ -2,6 +2,7 @@ package com.luis_santiago.aigol;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -12,6 +13,8 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.luis_santiago.aigol.utils.tools.adapters.LeagueAdapter;
 import com.luis_santiago.aigol.utils.tools.data.news.score.League;
 
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private GridLayoutManager mGridLayoutManager;
     private final int MY_PERMISION_REQUEST = 1;
     private Toolbar mToolbar;
+    private InterstitialAd mInterstitialAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,12 @@ public class MainActivity extends AppCompatActivity {
         mToolbar.setTitle("Choose your league");
         // I pass the context and the number of columns in the grid view
         mGridLayoutManager = new GridLayoutManager(this, 2);
+        //Setting up the ads view
+        mInterstitialAd = new InterstitialAd(this);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        mInterstitialAd.setAdUnitId("ca-app-pub-5461480863776866/2345903181");
+        mInterstitialAd.loadAd(adRequest);
         // I assing my LayoutManager for a grid view
         recyclerView.setLayoutManager(mGridLayoutManager);
         ArrayList<League> finalLeague = new ArrayList<>();
@@ -55,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
         // I set up the adapter to run everything
         recyclerView.setAdapter(leagueAdapter);
         checkForPermission();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(mInterstitialAd.isLoaded()){
+                    Log.e(TAG, "The add is loaded from MainActivity");
+                    mInterstitialAd.show();
+                }
+                Log.e(TAG, "The add isn't loaded");
+            }
+        },9000);
     }
 
     private void setUpToolbar(){

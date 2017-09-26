@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
@@ -44,7 +45,6 @@ public class HomeActivity extends DrawerActivity {
     private Drawable foto2;
     private Drawable foto3;
     private TextView logoWhite;
-    private InterstitialAd interstitialAd;
     private AdView mAdview;
 
     // This Bundle is for receiving data from the main Activity
@@ -61,8 +61,6 @@ public class HomeActivity extends DrawerActivity {
 
         mAdview = (AdView) findViewById(R.id.banner);
         //starting to show the banner add
-        interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-5461480863776866/3346084113");
         AdRequest adRequest = new AdRequest.Builder()
                 .build();
         mAdview.loadAd(adRequest);
@@ -184,6 +182,16 @@ public class HomeActivity extends DrawerActivity {
                 .getPagerTitleStrip()
                 .setViewPager(mViewPager.getViewPager());
 
+      /*  new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if(interstitialAd.isLoaded()){
+                    interstitialAd.show();
+                    Log.e("AD", "I'm showing");
+                }
+                Log.e("AD", "AD hasn't loaded");
+            }
+        },9500);*/
     }
     @Override
     public void onBackPressed() {

@@ -42,6 +42,7 @@ import rx.schedulers.Schedulers;
 import static android.content.ContentValues.TAG;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.V;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -71,16 +72,18 @@ public class ScoresFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_scores, container, false);
         init(view);
         mTableTeamArrayList = new ArrayList<>();
+        mScoreAdapters = new ScoreAdapters(mTableTeamArrayList, getContext(),HomeActivity.leagueName);
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
         mLayoutManager = new LinearLayoutManager(view.getContext());
         mRecyclerView.setLayoutManager(mLayoutManager);
         Log.e(TAG, "Estoy en la liga putos" + HomeActivity.leagueName);
         DatabaseReference scores = mDatabase.child("Scores").child(HomeActivity.leagueName);
         scores.keepSynced(true);
-        scores.addValueEventListener(new ValueEventListener() {
+        scores.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                ArrayList<ScoreTeam> localList = new ArrayList<>();
+                mTableTeamArrayList.clear();
+                mScoreAdapters.notifyDataSetChanged();
                 for(DataSnapshot snapshot : dataSnapshot.getChildren()){
                     Log.e(TAG, "THE DATA OF SNAPSHOT "+ snapshot.getValue());
                     String key= snapshot.getKey();
@@ -116,11 +119,8 @@ public class ScoresFragment extends Fragment {
                             teamAwayLogo,
                             teamHome,
                             team_home_logo);
-                    localList.add(scoreTeam);
+                    mTableTeamArrayList.add(scoreTeam);
                 }
-                mTableTeamArrayList.clear();
-                mTableTeamArrayList = localList;
-                mScoreAdapters = new ScoreAdapters(mTableTeamArrayList, getContext(),HomeActivity.leagueName);
                 mRecyclerView.addItemDecoration(new MaterialViewPagerHeaderDecorator());
                 mRecyclerView.setAdapter(mScoreAdapters);
                 mLinearLayout.setVisibility(View.GONE);
