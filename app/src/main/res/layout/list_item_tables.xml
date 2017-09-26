@@ -30,7 +30,7 @@
                 <ImageView
                     android:id="@+id/logo_team"
                     android:layout_width="35dp"
-                    android:src="@drawable/laliga_v_600x600"
+                    android:layout_marginTop="4dp"
                     android:layout_gravity="center"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="1dp"
@@ -66,7 +66,7 @@
                         android:textColor="@color/white"
                         android:gravity="center"
                         android:layout_height="wrap_content"
-                        android:textSize="8sp"
+                        android:textSize="10sp"
                         android:text="MP"
                         />
                     <TextView
@@ -92,7 +92,7 @@
                         android:textColor="@color/white"
                         android:layout_weight=".4"
                         android:layout_height="wrap_content"
-                        android:textSize="8sp"
+                        android:textSize="10sp"
                         android:text="GF"
                         />
                     <TextView
@@ -117,7 +117,7 @@
                         android:gravity="center"
                         android:textColor="@color/white"
                         android:layout_height="wrap_content"
-                        android:textSize="8sp"
+                        android:textSize="10sp"
                         android:text="GA"
                         />
                     <TextView
@@ -139,7 +139,7 @@
                         android:gravity="center_horizontal"
                         android:textColor="@color/white"
                         android:layout_height="wrap_content"
-                        android:textSize="8sp"
+                        android:textSize="10sp"
                         android:text="GD"
                         />
                     <TextView
@@ -162,7 +162,7 @@
                         android:gravity="center_horizontal"
                         android:textColor="@color/white"
                         android:layout_height="wrap_content"
-                        android:textSize="8sp"
+                        android:textSize="10sp"
                         android:text="PTS"
                         />
                     <TextView

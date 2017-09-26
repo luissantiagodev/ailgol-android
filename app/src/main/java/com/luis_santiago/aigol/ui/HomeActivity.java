@@ -57,7 +57,6 @@ public class HomeActivity extends DrawerActivity {
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId("ca-app-pub-5461480863776866/3346084113");
         AdRequest adRequest = new AdRequest.Builder()
-                .addTestDevice("FA73653EA402CC30D55A5140976DA6C4")
                 .build();
         mAdview.loadAd(adRequest);
         // Setting up the mBundle object
@@ -74,7 +73,7 @@ public class HomeActivity extends DrawerActivity {
             foto1 = getResources().getDrawable(R.drawable.chivas);
             foto2 = getResources().getDrawable(R.drawable.pumas);
             foto3 = getResources().getDrawable(R.drawable.america);
-            logoWhite.setText("LigaMx");
+            logoWhite.setText("Liga Mx");
         }
         else if(leagueName.equals("LigaEspañola")){
             foto1 = getResources().getDrawable(R.drawable.madrid);
@@ -86,7 +85,31 @@ public class HomeActivity extends DrawerActivity {
             foto1 = getResources().getDrawable(R.drawable.monaco);
             foto2 = getResources().getDrawable(R.drawable.psg);
             foto3 = getResources().getDrawable(R.drawable.lyon);
-            logoWhite.setText("La Liga");
+            logoWhite.setText("Ligue 1");
+        }
+        else if(leagueName.equals("bundesliga")){
+            foto1 = getResources().getDrawable(R.drawable.bayern);
+            foto2 = getResources().getDrawable(R.drawable.dortmund);
+            foto3 = getResources().getDrawable(R.drawable.bundesliga_third);
+            logoWhite.setText("Bundesliga");
+        }
+        else if(leagueName.equals("serie-a")){
+            foto1 = getResources().getDrawable(R.drawable.seria_a_1);
+            foto2 = getResources().getDrawable(R.drawable.serie_a_2);
+            foto3 = getResources().getDrawable(R.drawable.serie_a_3);
+            logoWhite.setText("Serie A");
+        }
+        else if(leagueName.equals("Eredivisie")){
+            foto1 = getResources().getDrawable(R.drawable.holandesa_1);
+            foto2 = getResources().getDrawable(R.drawable.holandesa_2);
+            foto3 = getResources().getDrawable(R.drawable.holandesa_3);
+            logoWhite.setText("Eredivisie");
+        }
+        else if(leagueName.equals("premier-league")){
+            foto1 = getResources().getDrawable(R.drawable.premier_1);
+            foto2 = getResources().getDrawable(R.drawable.premier_2);
+            foto3 = getResources().getDrawable(R.drawable.premier_3);
+            logoWhite.setText("Premier League");
         }
 
         mViewPager.getViewPager().setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {

@@ -5,6 +5,8 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -23,6 +25,7 @@ import com.luis_santiago.aigol.R;
 public class FirebaseMessagingService extends com.google.firebase.messaging.FirebaseMessagingService {
     private int currentNotificationID = 0;
     private NotificationManager notificationManager;
+    private Bitmap icon;
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -37,10 +40,18 @@ public class FirebaseMessagingService extends com.google.firebase.messaging.Fire
     }
 
     private void showNotification(String title, String body) {
+
+        icon =   BitmapFactory.decodeResource(this.getResources(),
+                R.drawable.ic_launcher_app);
+
         notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 
         NotificationCompat.Builder notificaionBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.laliga_v_600x600)
+                .setSmallIcon(R.drawable.ic_stat_ic_launcher_app)
+                .setColor(getResources().getColor(R.color.colorPrimaryDark))
+                .setLargeIcon(icon)
+                .setVibrate(new long[] { 100, 250 })
+                .setDefaults(Notification.DEFAULT_SOUND).setAutoCancel(true)
                 .setContentTitle(title)
                 .setAutoCancel(true)
                 .setContentText(body);

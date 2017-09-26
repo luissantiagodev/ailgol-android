@@ -27,10 +27,7 @@ public class WebActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         String url = bundle.getString(Keys.URL_BASE_NEWS);
         loadToolbar();
-        mToolbar.setTitle("News");
-        Log.e(TAG, url);
         mProgressBar.setMax(100);
-
         webView.setWebChromeClient(new WebChromeClient(){
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
@@ -51,13 +48,21 @@ public class WebActivity extends AppCompatActivity {
 
     private void loadToolbar(){
         mToolbar = (Toolbar) findViewById(R.id.text_bar_toolbar);
+        mToolbar.setTitle("News");
         setSupportActionBar(mToolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowTitleEnabled(true);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home: {
+                finish();
+                break;
+            }
+        }
         return true;
     }
 }
